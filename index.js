@@ -1,20 +1,9 @@
+import express from 'express';
 import fetch from 'node-fetch';
 
 console.log('Start');
 
-const url = 'https://wiki-ads.onrender.com/categories';
-const headers = {
-  'Content-Type': 'application/json',
-};
+const express = require('express');
 
-fetch(url, {
-    method:'GET',
-    headers: headers,
-})
-.then(response=>{
-  return response.json();
-})
-.then(text=>console.log(text))
-.catch(response=>{
-  console.log(response)
-})
+
+
