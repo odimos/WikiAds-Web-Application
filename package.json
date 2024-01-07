@@ -1,0 +1,15 @@
+{
+  "name": "wikiapp",
+  "version": "1.0.0",
+  "description": "functionality for the wiki application",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "dimosthenis giannakopoulos",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "type": "module"
+}
