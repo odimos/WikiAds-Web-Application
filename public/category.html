@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <!-- Why here no static? -->
+    <script src="static/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
+</head>
+<body>
+    <script>
+        //access to url params
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        //getData(`https://wiki-ads.onrender.com/ads?category=1`)
+        getAdsFromSubCategory(1)
+        
+    </script>
+    <script id="category-template" type="text/x-handlebars-template">
+        <h1>{{title}}</h1>
+        <img src="https://wiki-ads.onrender.com/{{img_url}}">
+    </script>
+    
+</body>
+</html>

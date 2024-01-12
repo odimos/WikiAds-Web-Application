@@ -1,1 +1,38 @@
-i used type module, should ti be like that?
+view engine 
+pos ine oi eksetaseis
+vres palia themata
+
+server side 'h client side ?
+
+-> client side
+i statiki html selida, 
+
+we need engine? 
+
+client side fetch if not
+
+---
+
+All calls
+
+Κλήσεις:
+*Ολες οι κατηγορίες
+* υποκατηγορίες κάθε λίστας
+
+* -> αγγελίες μίας κατηγορίας
+
+--
+Οι κλήσεις σερβερ σαηντ ή κλιεντ σαηντ 
+στατικ φαηλ ή έντζιν
+
+άλλη δομή στο παράδειγμα
++ τα απραδείγματα handlebars είναι clientside
+
+---
+
+Τι μορφή θα έχει η εξέταση
+
+
+---
+
+fetch ston nodejs server kai epeita epistrofi 
