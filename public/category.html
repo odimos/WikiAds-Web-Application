@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category</title>
-    <!-- Why here no static? -->
+    <script>
+        // some global vars
+        const myGlobalvariables = {
+            "username": undefined,
+            "sessionId": undefined
+        }
+
+    </script>
     <script src="static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <script src="static/js/category.js"></script>
@@ -37,11 +44,12 @@
     <script id="category-template" type="text/x-handlebars-template">
         <ul>
             {{#each ads}}
+            <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event)" >Add</button>
             <li>
-                <h2>{{title}}</h2>
-                <p>{{description}}</p>
-                <img src="https://wiki-ads.onrender.com/{{images.[0]}}">
-                <p>{{cost}}</p>
+                <h2 name="title">{{title}}</h2>
+                <p name="description">{{description}}</p>
+                <img name="image" src="https://wiki-ads.onrender.com/{{images.[0]}}">
+                <p name="cost">{{cost}}</p>
             </li>
             {{/each}}
         </ul>

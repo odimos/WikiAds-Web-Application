@@ -38,3 +38,5 @@ All calls
 fetch ston nodejs server kai epeita epistrofi 
 
 handlebars fucking my objects
+
+dont use sessionstorage moron

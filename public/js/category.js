@@ -3,6 +3,40 @@ function informForm(success){
     .textContent = success;
 }
 
+function informLocalStorage(username, sessionId){
+    myGlobalvariables.username = username;
+    myGlobalvariables.sessionId =  sessionId;
+}
+
+function submitFavorite(event){
+
+    let username = myGlobalvariables.username;
+    let sessionId = myGlobalvariables.sessionId;
+    // check client-side if logged 
+    if (!sessionId){
+        alert('Παρακαλώ συνδεθείτε για προσθήκη στη λίστα αγαπημένων');
+        return;
+    }
+
+    const btn = event.target;
+    let liData = btn.nextElementSibling;
+    let data = {
+        'ad':{
+            "image":liData.querySelector(`[name="image"]`).src,
+            "id": btn.dataset.ad_id  
+        },
+        user:{
+            username, sessionId
+        }
+    };
+    ['title', 'description', 'cost'].forEach(attribute_name=>{
+            data.ad[attribute_name] = 
+            liData.querySelector(`[name="${attribute_name}"]`).textContent
+    });
+    console.log(data)
+    
+}
+
 function submitForm(){
     let login = document.querySelector("#loginForm");
     console.log(login);
@@ -35,6 +69,7 @@ function submitForm(){
           .then(data =>{
             // update the login form
             informForm(true);
+            informLocalStorage(jsonData.username, data.sessionId);
             console.log(data);
           })
           .catch(err=> {
