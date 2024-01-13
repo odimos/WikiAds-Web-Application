@@ -10,17 +10,37 @@
 
 </head>
 <body>
+    <h1>Category id: <span id="category_id"></span></h1>
+    <script id="category-template" type="text/x-handlebars-template">
+        <ul>
+            {{#each ads}}
+            <li>
+                <h2>{{title}}</h2>
+                <p>{{description}}</p>
+                <img src="https://wiki-ads.onrender.com/{{images.[0]}}">
+                <p>{{cost}}</p>
+            </li>
+            {{/each}}
+        </ul>
+    </script>
     <script>
         //access to url params
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-        //getData(`https://wiki-ads.onrender.com/ads?category=1`)
-        getAdsFromSubCategory(1)
+        document.querySelector('#category_id').textContent = id;
+        getAdsFromCategory(id)
+        .then(ads=>{
+            // handlebars
+            let templateSource = document.getElementById("category-template").innerHTML;
+            let template = Handlebars.compile(templateSource);
+            console.log(ads)
+            let data = {
+                ads: ads
+            }
+            let html = template(data );
+            document.body.innerHTML += html;
+        });
         
-    </script>
-    <script id="category-template" type="text/x-handlebars-template">
-        <h1>{{title}}</h1>
-        <img src="https://wiki-ads.onrender.com/{{img_url}}">
     </script>
     
 </body>

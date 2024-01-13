@@ -31,6 +31,7 @@
         Promise.all([getCategories(), getSubCategories()])
         .then(([categories, subcategories]) => {
             let categoryMap = createCategorymap(categories, subcategories);
+            console.log(categoryMap)
 
             // handlebars
             let templateSource = document.getElementById("categories-template").innerHTML;
@@ -43,21 +44,10 @@
                     subcategories: subcategories.filter(subcategory => subcategory.category_id === category.id)
                 }))
             };
+            console.log(data)
             let html = template(data);
             document.body.innerHTML += html;
         });
-        const headers = {
-        'Accept': 'application/json',
-        };
-        
-        fetch('https://wiki-ads.onrender.com/ads?category=1', {
-            method:'GET',
-            headers: headers,
-        })
-        .then(r=>{
-            console.log(r);
-        })
-
       </script>
 
 

@@ -13,13 +13,7 @@ const app = express();
 app.use('/static',express.static(path.join(__dirname, 'public')));
 
 app.get('/category', function (req, res) {
-  console.log('category');
-  getAdsFromCategory(1)
-  .then(r=>{
-    console.log(r);
     res.sendFile('public/category.html', { root: __dirname });
-
-  })
 });
 
 

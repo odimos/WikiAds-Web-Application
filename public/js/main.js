@@ -16,12 +16,13 @@ function test(){
 }
 
  function getAdsFromSubCategory(id){
-  return getData(`https://wiki-ads.onrender.com/ads?subcategory=${id}`);
+  // why does it need the / before ? ??
+  return getData(`https://wiki-ads.onrender.com/ads/?subcategory=${id}`);
 
 }
 
  function getAdsFromCategory(id){
-  return getData(`https://wiki-ads.onrender.com/ads?category=${id}`);
+  return getData(`https://wiki-ads.onrender.com/ads/?category=${id}`);
 
 }
 
