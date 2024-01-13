@@ -3,33 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category</title>
+    <title>SubCategory</title>
+    <!-- Why here no static? -->
+    <script src="static/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <style>
+        img{
+            width: 50px;
+        }
+    </style>
 </head>
 <body>
-    <script>
-        //access to url params
-    </script>
-    <h2>{Category Name}</h2>
-    <ul>
-        <li>
-            <div class="ad">
-                <h3>title</h3>
-                <p>desc</p>
-                <ul>
-                    <li><img src=""></li>
-                    <li><img src=""></li>
-                </ul>
-                <p>price</p>
+    <h1>SubCategory id: <span id="Subcategory_id"></span></h1>
+    <script id="Subcategory-template" type="text/x-handlebars-template">
+        <ul>
+            {{#each ads}}
+            <li>
+                <h2>{{title}}</h2>
+                <p>{{description}}</p>
+                {{#each images}}
+                    <img src="https://wiki-ads.onrender.com/{{this}}">
+                {{/each}}
+                <p>{{cost}}</p>
+                <!--table - features-->
                 <table>
-                    <!--Specs, break at ;-->
                     <tr>
-                        <td></td>
+                        {{#each featuresArray}}
+                            <td> {{this}} </td>
+                        {{/each}}
                     </tr>
                 </table>
-            </div>
-        </li>
-    </ul>
 
+            </li>
+            {{/each}}
+        </ul>
+    </script>
+    <script>
+        //access to url params
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        document.querySelector('#Subcategory_id').textContent = id;
+        getAdsFromSubCategory(id)
+        .then(ads=>{
+            // handlebars
+            let templateSource = document.getElementById("Subcategory-template").innerHTML;
+            let template = Handlebars.compile(templateSource);
+            console.log(ads);
+            // make data split is this the right kind of table?
+            ads.forEach(ad=>{
+                ad.featuresArray = ad.features.split(';');
+            });
+            console.log(ads);
+            let data = {
+                ads: ads
+            };
+            let html = template(data );
+            document.body.innerHTML += html;
+        });
+        
+    </script>
     
 </body>
 </html>

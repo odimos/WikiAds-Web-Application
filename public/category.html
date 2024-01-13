@@ -7,7 +7,11 @@
     <!-- Why here no static? -->
     <script src="static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-
+    <style>
+        img{
+            width: 50px;
+        }
+    </style>
 </head>
 <body>
     <h1>Category id: <span id="category_id"></span></h1>
@@ -33,10 +37,10 @@
             // handlebars
             let templateSource = document.getElementById("category-template").innerHTML;
             let template = Handlebars.compile(templateSource);
-            console.log(ads)
+            console.log(ads);
             let data = {
                 ads: ads
-            }
+            };
             let html = template(data );
             document.body.innerHTML += html;
         });

@@ -16,6 +16,11 @@ app.get('/category', function (req, res) {
     res.sendFile('public/category.html', { root: __dirname });
 });
 
+app.get('/subcategory', function (req, res) {
+  res.sendFile('public/subcategory.html', { root: __dirname });
+});
+
+
 
 app.get('/', function (req, res) {
   console.log('index');
