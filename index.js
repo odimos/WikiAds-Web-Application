@@ -3,7 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 
-const {authenticate} = require('./DAO.js');
+const {authenticate, authenticateSession, updateCurrentSession, addFavorite} = require('./DAO.js');
 
 const app = express();
 
@@ -16,8 +16,6 @@ const app = express();
 app.use('/static',express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-
-
 
 app.get('/category', function (req, res) {
     res.sendFile('public/category.html', { root: __dirname });
@@ -35,13 +33,16 @@ app.get('/', function (req, res) {
 
 app.post('/login',(req,res)=>{
   // test authenticity req.body
-  let auth = authenticate(req.body.username, req.body.password );
-  if (auth) {
+  let auth_user_id = authenticate(req.body.username, req.body.password );
+  if (auth_user_id) {
     res.status(200);
     res.type('applicatin/json');
     let resObj = {};
     resObj.sessionId = uuidv4();
     let answer = JSON.stringify(resObj);
+
+    updateCurrentSession(auth_user_id, resObj.sessionId );
+  
     res.send(answer);
   } else {
     res.status(401);
@@ -53,6 +54,26 @@ app.post('/login',(req,res)=>{
 
   };
 
+});
+
+app.put('/favorites/:id', (req,res)=>{
+  let {ad, user} = req.body;
+  console.log(user)
+  // athenticate the session
+  let authSess = authenticateSession(user.username, user.sessionId);
+
+  if (authSess){
+    console.log(authSess);
+    // add the fav after checking for dubs
+    let success = addFavorite(user.username, ad)
+    if(success){
+      res.send(200);
+    } else {
+      res.send(409);
+    }
+  } else {
+    res.send(401);
+  }
 });
 
 const port =  3000;

@@ -33,7 +33,17 @@ function submitFavorite(event){
             data.ad[attribute_name] = 
             liData.querySelector(`[name="${attribute_name}"]`).textContent
     });
-    console.log(data)
+    console.log(data);
+    const headers = {
+        "Content-type": "application/json"
+      };
+
+    fetch( `favorites/${data.ad.id}` , {
+        method:'PUT',
+        headers,
+        body:JSON.stringify(data)
+    });
+
     
 }
 
