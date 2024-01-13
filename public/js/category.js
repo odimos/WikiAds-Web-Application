@@ -6,6 +6,10 @@ function informForm(success){
 function informLocalStorage(username, sessionId){
     myGlobalvariables.username = username;
     myGlobalvariables.sessionId =  sessionId;
+
+    let favs_link = document.querySelector('#favorites');
+    favs_link.href = `favorites?username=${username}&sessionId=${sessionId}`;
+    favs_link.style.display = "block";
 }
 
 function submitFavorite(event){

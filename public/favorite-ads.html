@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite</title>
+</head>
+<body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        const sessionId = urlParams.get('sessionId');
+        console.log(username, sessionId);
+
+        fetch('/showfavorites',{
+            method:'POST',
+            headers: { 'Content-type':'application/json' },
+            body: JSON.stringify({'username':username, 'sessionId':sessionId})
+        })
+        .then(r=>{
+            if (r.status!=200){
+                throw new Error(`Error, Status: ${response.status}`);
+            }
+            return r.json();
+        })
+        .then(r=>{
+            console.log(r)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    </script>
+    
+</body>
+</html>

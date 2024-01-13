@@ -50,9 +50,15 @@ function addFavorite(username, object){
     return true;
 }
 
+function getFavorites(username){
+    let user = findByName(username);
+    return user.favorites;
+}
+
 module.exports = {
     authenticate,
     authenticateSession,
     updateCurrentSession,
-    addFavorite
+    addFavorite,
+    getFavorites
 }

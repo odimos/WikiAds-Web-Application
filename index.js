@@ -3,7 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 
-const {authenticate, authenticateSession, updateCurrentSession, addFavorite} = require('./DAO.js');
+const {authenticate, authenticateSession, updateCurrentSession, addFavorite, getFavorites} = require('./DAO.js');
 
 const app = express();
 
@@ -25,6 +25,9 @@ app.get('/subcategory', function (req, res) {
   res.sendFile('public/subcategory.html', { root: __dirname });
 });
 
+app.get('/favorites', function (req, res){
+  res.sendFile('public/favorite-ads.html', {root:__dirname})
+})
 
 app.get('/', function (req, res) {
   console.log('index');
@@ -75,6 +78,19 @@ app.put('/favorites/:id', (req,res)=>{
     res.send(401);
   }
 });
+ 
+app.post('/showfavorites', function (req, res){
+  console.log(req.body);
+  let authSess = authenticateSession(req.body.username, req.body.sessionId);
+  if (authSess){
+    const favs = getFavorites(req.body.username);
+    res.status(200);
+    res.type('applicatin/json');
+    res.send( JSON.stringify(favs) );
+  } else { 
+    res.send(401);
+  }
+})
 
 const port =  3000;
 app.listen(port, ()=>{
