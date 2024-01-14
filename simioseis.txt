@@ -1,10 +1,11 @@
 handlebars fucking my objects
-
-- pinakas
-- DAO kai vasi
-1. html validation
-2. create basic css 
-3. 
-
+-----
 
 CSS μόνο για τα subcategories, αν αλλάξεις κάτι ακόμα θα σε σκοτώσω
+-> Πίνακας και Εικόνες
+
+HTML, CSS validation
+
+Δέσ' το με κανονική βάση
+
+Για τα DAO objects

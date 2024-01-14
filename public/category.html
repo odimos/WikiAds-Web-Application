@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="marginMenuElement"></div>
-    
+
     <form id="loginForm" >
         <span>
             <input type="text" id="username" name="username" placeholder="username">
@@ -43,26 +43,54 @@
 
         <a id="favorites" style="display: none;" class="clean-a"  href="">favorites</a>
  
-    <script id="category-template" type="text/x-handlebars-template">
-        <ul class="categories clean-ul" name="ads">
-            {{#each ads}}
-            <li name="categoryAd">
-                <div class="adLezanta">
-                    <h2 name="title">{{title}}</h2>
-                    <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event)" >❤️</button>
-                </div>
-                <div class="adContent">
-                    <div class="imageFrame">
-                        <img name="image" src="https://wiki-ads.onrender.com/{{images.[0]}}">
+    
+    <div id="gridWrapper">
+    
+        <main>
+            <script id="category-template" type="text/x-handlebars-template">
+                <ul class="categories clean-ul" name="ads">
+                    {{#each ads}}
+                    <li name="categoryAd" data-sub_id="{{subcategory_id}}">
+                        <div class="adLezanta">
+                            <h2 name="title">{{title}}</h2>
+                            <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event)" >❤️</button>
+                        </div>
+                        <div class="adContent">
+                            <div class="imageFrame">
+                                <img name="image" src="https://wiki-ads.onrender.com/{{images.[0]}}">
+                            </div>
+                            <p name="description">{{description}}</p>
+                        </div>
+                        <p name="cost"> <b>{{cost}} €</b></p>
+                        <div class="clearElement"></div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </script>
+        </main>
+            
+
+        <script id="side-menu-template" type="text/x-handlebars-template">
+            <div id="side-menu-wrapper">
+                <fieldset id="side-menu">
+                    
+                    <div class="radioOption">
+                        <input type="radio" id="0" name="side-menu" value="0" checked>
+                        <label for="0">All</label>
                     </div>
-                    <p name="description">{{description}}</p>
-                </div>
-                <p name="cost"> <b>{{cost}} €</b></p>
-                <div class="clearElement"></div>
-            </li>
-            {{/each}}
-        </ul>
-    </script>
+                    {{#each subs}}
+                    <div class="radioOption">
+                        <input type="radio" id="{{id}}" name="side-menu" value="{{id}}">
+                        <label for="{{id}}">{{title}}</label>
+                    </div>
+                    {{/each}}
+                </fieldset>
+            </div>
+
+        </script>
+
+
+    </div>
 
 </body>
 </html>
