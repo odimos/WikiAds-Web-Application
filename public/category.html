@@ -20,34 +20,41 @@
 </head>
 <body>
 
-    <div>
-        <form id="loginForm" >
-            <span>
-                <input type="text" id="username" name="username" placeholder="username">
-                <input type="password" id="password" name="password" placeholder="password">
-            </span>
-
-            <input class="submit-btn" id="submitlogin" type="submit" value="login">
-        </form>
-          <p id="formSuccess"></p>
-          <p id="welcome" class="success" style="display:none;">Welcome <span></span> </p>
+    <div id="navWrap">
+        <nav><a name="menu_option" class="clean-a" href="./">Home</a></nav>
+        <div class="messageContainer">
+            <h3>Welcome</h3>
+        </div>
     </div>
-    <a id="favorites" style="display: none;" href="">Favorites</a>
+    <div class="marginMenuElement"></div>
+    <form id="loginForm" >
+        <span>
+            <input type="text" id="username" name="username" placeholder="username">
+            <input type="password" id="password" name="password" placeholder="password">
+        </span>
 
-  
-    <h1 id="kk">Category id: <span id="category_id"></span></h1>
-
-
+        <input class="submit-btn" id="submitlogin" type="submit" value="login">
+    </form>
+        <p id="formSuccess"></p>
+        <p id="welcome" class="success" style="display:none;">Welcome <span></span> </p>
+<a id="favorites" style="display: none;" href="">Favorites</a>
  
     <script id="category-template" type="text/x-handlebars-template">
-        <ul class="categories">
+        <ul class="categories clean-ul" name="ads">
             {{#each ads}}
-            <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event)" >❤️</button>
-            <li>
-                <h2 name="title">{{title}}</h2>
-                <p name="description">{{description}}</p>
-                <img name="image" src="https://wiki-ads.onrender.com/{{images.[0]}}">
-                <p name="cost">{{cost}}</p>
+            <li name="categoryAd">
+                <div class="adLezanta">
+                    <h2 name="title">{{title}}</h2>
+                    <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event)" >❤️</button>
+                </div>
+                <div class="adContent">
+                    <div class="imageFrame">
+                        <img name="image" src="https://wiki-ads.onrender.com/{{images.[0]}}">
+                    </div>
+                    <p name="description">{{description}}</p>
+                </div>
+                <p name="cost"> <b>{{cost}} €</b></p>
+                <div class="clearElement"></div>
             </li>
             {{/each}}
         </ul>

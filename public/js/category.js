@@ -36,7 +36,7 @@ function submitFavorite(event){
     }
 
     const btn = event.target;
-    let liData = btn.nextElementSibling;
+    let liData = btn.parentElement.parentElement;
     let data = {
         'ad':{
             "image":liData.querySelector(`[name="image"]`).src,
@@ -141,7 +141,7 @@ window.onload = ()=>{
     // construct handlebars
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
-    document.querySelector('#category_id').textContent = id;
+    //document.querySelector('#category_id').textContent = id;
     getAdsFromCategory(id)
     .then(ads=>{
         // handlebars
