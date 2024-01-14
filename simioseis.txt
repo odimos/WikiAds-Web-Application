@@ -1,17 +1,7 @@
 handlebars fucking my objects
 
-better error handling
-
-- swsti seira sta app.('../')
 - pinakas
 - DAO kai vasi
 1. html validation
 2. create basic css 
 3. 
-
-
-if response.status == 200
-if response.status == 401
-if response.status == 409
-else 
-.catch default

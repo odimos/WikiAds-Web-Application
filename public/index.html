@@ -11,15 +11,19 @@
 <body>
 
     <script id="categories-template" type="text/x-handlebars-template">
-        <ul>
+        <ul class="clean-ul " name="categories">
         {{#each categories}}
             <li>
-            <div class="category">
-                <h2> <a href="category?id={{id}}"> {{title}} </a></h2>
-                <img src="https://wiki-ads.onrender.com/{{img_url}}">
-                <ul>
+            <div class="">
+                <a class="clean-a redHover" href="category?id={{id}}"> 
+                    <h3>{{title}} </h3>
+                    <div class="imageContainer">
+                        <img src="https://wiki-ads.onrender.com/{{img_url}}">
+                    </div>
+                </a>
+                <ul class="clean-ul" name="subcategories">
                 {{#each subcategories}}
-                    <li><a href="subcategory?id={{id}}">{{title}}</a></li>
+                    <li><a class="clean-a redHover" href="subcategory?id={{id}}">{{title}}</a></li>
                 {{/each}}
                 </ul>
             </div>

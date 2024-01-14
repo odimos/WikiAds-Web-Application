@@ -1,15 +1,13 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 
-const {authenticate, authenticateSession, updateCurrentSession, addFavorite, getFavorites} = require('./DAO.js');
+const {authenticate, authenticateSession, updateCurrentSession, addFavorite, getFavorites} = require('./user.js');
 
 const app = express();
 
 // Serve static files from the 'public' directory
 app.use('/static',express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/category', function (req, res) {
@@ -93,16 +91,10 @@ app.post('/showfavorites', function (req, res){
     answer = JSON.stringify(resObj); 
     res.send(answer);
   }
-})
+});
 
 const port =  3000;
 app.listen(port, ()=>{
   console.log('Start listening localhost:'+port)
 })
-
-
-// Middleware to parse urlencoded data - for forms mainly
-//app.use(bodyParser.urlencoded({ extended: false }));
-// Middleware to parse JSON data
-// app.use(express.json());
 
