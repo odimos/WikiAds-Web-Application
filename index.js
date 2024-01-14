@@ -74,7 +74,7 @@ app.put('/favorites', (req,res)=>{
     res.status(401);
     res.type('applicatin/json');
     let resObj = {'message': "Authentication Error"};
-    answer = JSON.stringify(resObj);
+    answer = JSON.stringify(resObj); 
     res.send(answer);
   }
 });
@@ -90,7 +90,7 @@ app.post('/showfavorites', function (req, res){
     res.status(401);
     res.type('applicatin/json');
     let resObj = {'message': "Authentication Error"};
-    answer = JSON.stringify(resObj);
+    answer = JSON.stringify(resObj); 
     res.send(answer);
   }
 })

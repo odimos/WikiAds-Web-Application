@@ -1,3 +1,14 @@
+function handlebarsCreation(ads){
+    let templateSource = document.getElementById("favorites-template").innerHTML;
+    let template = Handlebars.compile(templateSource);
+    let data = {
+        ads: ads
+    };
+    console.log(data.ads)
+    let html = template(data );
+    document.body.innerHTML += html;
+}
+
 window.onload = ()=>{
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -10,23 +21,27 @@ window.onload = ()=>{
         headers: { 'Content-type':'application/json' },
         body: JSON.stringify({'username':username, 'sessionId':sessionId})
     })
-    .then(r=>{
-        if (r.status!=200){
-            throw new Error(`Error, Status: ${response.status}`);
+    .then(response=>{
+        if (response.status!=200){
+            if (response.status==401){
+                // authorisation error
+                return response.json()
+                .then(err=>{
+                    console.log('Auth Error', err);
+                    throw new Error('Failed Authorisation');
+                }) 
+            } 
+            else {
+                throw new Error(`Error Status: ${response.statusText}`);
+            }
         }
-        return r.json();
+        return response.json();
     })
     .then(r=>{
-        let templateSource = document.getElementById("favorites-template").innerHTML;
-        let template = Handlebars.compile(templateSource);
-        let data = {
-            ads: r
-        };
-        console.log(data.ads)
-        let html = template(data );
-        document.body.innerHTML += html;
+        handlebarsCreation(r);
     })
     .catch(err=>{
+        alert(err);
         console.log(err)
     })
 
