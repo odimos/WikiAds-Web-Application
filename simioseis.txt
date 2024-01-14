@@ -1,7 +1,7 @@
 handlebars fucking my objects
 -----
 
-CSS μόνο για τα subcategories, αν αλλάξεις κάτι ακόμα θα σε σκοτώσω
+CSS μόνο για τα subcategories, αν αγγίξεις για άλλο CSS θα φύγει μαχαίρι
 -> Πίνακας και Εικόνες
 
 HTML, CSS validation
