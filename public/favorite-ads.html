@@ -4,32 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favorite</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="static/js/favorites.js"></script>
+
 </head>
 <body>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
-        const sessionId = urlParams.get('sessionId');
-        console.log(username, sessionId);
 
-        fetch('/showfavorites',{
-            method:'POST',
-            headers: { 'Content-type':'application/json' },
-            body: JSON.stringify({'username':username, 'sessionId':sessionId})
-        })
-        .then(r=>{
-            if (r.status!=200){
-                throw new Error(`Error, Status: ${response.status}`);
-            }
-            return r.json();
-        })
-        .then(r=>{
-            console.log(r)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+    <h1>Favorites</h1>
+
+    <script id="favorites-template" type="text/x-handlebars-template">
+        <ul>
+            {{#each ads}}
+            <li>
+                <h2 name="title">{{title}}</h2>
+                <p name="description">{{description}}</p>
+                <img name="image" src="{{image}}">
+                <p name="cost">{{cost}}</p>
+            </li>
+            {{/each}}
+        </ul>
     </script>
-    
+
 </body>
 </html>

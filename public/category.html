@@ -15,25 +15,20 @@
     <script src="static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <script src="static/js/category.js"></script>
-    <style>
-        img{
-            width: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="static/css/styles.css">
+
 </head>
 <body>
 
     <div>
         <form id="loginForm" >
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username" name="username" placeholder="username">
+            <input type="password" id="password" name="password" placeholder="password">
         
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
-        
-            <button id="submitlogin" type="submit">Login</button>
+            <input class="submit-btn" id="submitlogin" type="submit" value="login">
         </form>
-          <span id="formSuccess"></span>
+          <p id="formSuccess"></p>
+          <p id="welcome" class="success" style="display:none;">Welcome <span></span> </p>
     </div>
     <a id="favorites" style="display: none;" href="">Favorites</a>
 

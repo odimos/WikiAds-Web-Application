@@ -1,42 +1,13 @@
-view engine 
-pos ine oi eksetaseis
-vres palia themata
-
-server side 'h client side ?
-
--> client side
-i statiki html selida, 
-
-we need engine? 
-
-client side fetch if not
-
----
-
-All calls
-
-Κλήσεις:
-*Ολες οι κατηγορίες
-* υποκατηγορίες κάθε λίστας
-
-* -> αγγελίες μίας κατηγορίας
-
---
-Οι κλήσεις σερβερ σαηντ ή κλιεντ σαηντ 
-στατικ φαηλ ή έντζιν
-
-άλλη δομή στο παράδειγμα
-+ τα απραδείγματα handlebars είναι clientside
-
----
-
-Τι μορφή θα έχει η εξέταση
-
-
----
-
-fetch ston nodejs server kai epeita epistrofi 
-
 handlebars fucking my objects
 
-dont use sessionstorage moron
+- create correct return messages for errors:
+    authorization
+    duplicate
+- create correct client-side messages for errors
+- client side message for successfull log-in
+- swsti seira sta app.('../')
+- pinakas
+- DAO kai vasi
+1. html validation
+2. create basic css 
+3. 

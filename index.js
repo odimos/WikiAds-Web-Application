@@ -7,11 +7,6 @@ const {authenticate, authenticateSession, updateCurrentSession, addFavorite, get
 
 const app = express();
 
-// Set up Handlebars as the view engine
-// app.engine('handlebars', engine());
-// app.set('view engine', 'handlebars');
-// app.set('views', './public');
-
 // Serve static files from the 'public' directory
 app.use('/static',express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +25,6 @@ app.get('/favorites', function (req, res){
 })
 
 app.get('/', function (req, res) {
-  console.log('index');
   res.sendFile('public/index.html', { root: __dirname });
 });
 
@@ -59,14 +53,12 @@ app.post('/login',(req,res)=>{
 
 });
 
-app.put('/favorites/:id', (req,res)=>{
+app.put('/favorites', (req,res)=>{
   let {ad, user} = req.body;
-  console.log(user)
   // athenticate the session
   let authSess = authenticateSession(user.username, user.sessionId);
 
   if (authSess){
-    console.log(authSess);
     // add the fav after checking for dubs
     let success = addFavorite(user.username, ad)
     if(success){
@@ -80,7 +72,6 @@ app.put('/favorites/:id', (req,res)=>{
 });
  
 app.post('/showfavorites', function (req, res){
-  console.log(req.body);
   let authSess = authenticateSession(req.body.username, req.body.sessionId);
   if (authSess){
     const favs = getFavorites(req.body.username);

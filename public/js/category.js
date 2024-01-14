@@ -1,6 +1,18 @@
-function informForm(success){
-    document.querySelector('#formSuccess')
-    .textContent = success;
+function informForm(success, username){
+    let formSuccess = document.querySelector('#formSuccess');
+    if (!success){
+        formSuccess.textContent = 'Login Failed';
+        formSuccess.classList.add('failure')
+    } else {
+        formSuccess.style.display = "none";
+        let welcome = document.querySelector('#welcome');
+        welcome.style.display = "block";
+        document.querySelector('#loginForm')
+        .style.display = "none";
+        let usernameElement = welcome.querySelector('span');
+        usernameElement.textContent = username
+    }
+
 }
 
 function informLocalStorage(username, sessionId){
@@ -51,9 +63,8 @@ function submitFavorite(event){
     
 }
 
-function submitForm(){
+function submitFormInit(){
     let login = document.querySelector("#loginForm");
-    console.log(login);
     login.addEventListener('submit',(event)=>{
         event.preventDefault();
         const data = new FormData(event.target);
@@ -82,7 +93,7 @@ function submitForm(){
             )
           .then(data =>{
             // update the login form
-            informForm(true);
+            informForm(true, jsonData.username);
             informLocalStorage(jsonData.username, data.sessionId);
             console.log(data);
           })
@@ -111,7 +122,7 @@ window.onload = ()=>{
         let html = template(data );
         document.body.innerHTML += html;
 
-        submitForm();
+        submitFormInit();
     });
     
 }

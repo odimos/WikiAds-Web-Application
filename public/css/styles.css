@@ -1,0 +1,106 @@
+body {
+    background-color: rgb(238, 237, 237);
+}
+
+form {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: end;
+}
+
+.inputs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+form fieldset {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 0 0 5px 5px;
+  display: block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+margin-bottom: 20px;
+border: 0;
+border-top: 2px solid rgb(37, 37, 37);
+background-color: rgba(0, 0, 0, 0.01);
+  
+}
+
+form legend {
+    font-size: 1.2em;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1em;
+}
+
+form input, form textarea, form select  {
+    width: 200px ;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    box-sizing: border-box; /* fixes select asimetria*/
+    box-shadow: -1px 1px 1px 1px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    /*border: 1px solid rgb(165, 164, 164); */
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.8em;
+}
+
+form input[type="checkbox"]{
+    background-color: aqua;
+    box-shadow: 0 0 0 0;
+
+}
+
+.checkboxFlex{
+    display: flex;
+    max-width: 300px;
+    margin-bottom: 10px;
+}
+
+.nobreak{
+    white-space: nowrap;
+    width: 180px;
+}
+
+form.subd input:invalid{
+    background-color: red;
+}
+
+form input[type='submit'] {
+    margin: auto;
+    font-size: 1.1em;
+    cursor: pointer;
+    color: rgb(46, 46, 46);
+    background-color: rgb(158, 235, 143) ;
+    width: 100px;
+  }
+  form input[type='submit']:hover{
+    background-color: rgb(21, 253, 0);
+    color: rgb(255, 255, 255);
+    transition: 0.2s;
+  }
+
+input::placeholder, textarea::placeholder {
+    font-style: italic;
+}
+#formSuccess, #welcome{
+    padding: 25px;
+    border-radius: 5px;
+    margin: 0;
+    font-size: 1.3em;
+    text-align: end;
+
+}
+.failure{
+    background-color: rgb(255, 10, 10, 0.2);
+}
+
+.success{
+    background-color: rgba(9, 255, 0, 0.2);
+}

@@ -6,6 +6,7 @@
     <title>index</title>
     <script src="static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <link rel="stylesheet" href="static/css/styles.css">
 </head>
 <body>
 
@@ -31,7 +32,6 @@
         Promise.all([getCategories(), getSubCategories()])
         .then(([categories, subcategories]) => {
             let categoryMap = createCategorymap(categories, subcategories);
-            console.log(categoryMap)
 
             // handlebars
             let templateSource = document.getElementById("categories-template").innerHTML;
@@ -44,7 +44,6 @@
                     subcategories: subcategories.filter(subcategory => subcategory.category_id === category.id)
                 }))
             };
-            console.log(data)
             let html = template(data);
             document.body.innerHTML += html;
         });
