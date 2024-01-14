@@ -87,7 +87,11 @@ app.post('/showfavorites', function (req, res){
     res.type('applicatin/json');
     res.send( JSON.stringify(favs) );
   } else { 
-    res.send(401);
+    res.status(401);
+    res.type('applicatin/json');
+    let resObj = {'message': "Authentication Error"};
+    answer = JSON.stringify(resObj);
+    res.send(answer);
   }
 })
 

@@ -111,9 +111,16 @@ input::placeholder, textarea::placeholder {
     cursor: pointer;
     font-size: 1.5em;
     color: #e74c3c; /* Red color, you can change this */
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color transition on hover */
+    text-shadow: 0 0 8px #e74c3c;
+    transition: text-shadow 0.3s ease, transform 0.3s ease; /* Smooth color transition on hover */
 }
 [name="add_favorite"]:hover {
-    text-shadow: 0 0 10px #e74c3c; /* Add shadow on hover for a subtle effect */
+    text-shadow: 0 0 3px #e74c3c; /* Add shadow on hover for a subtle effect */
     transform: scale(1.2);
+    transition: text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+img {
+    max-width: 100px;
+    max-height: 100px;
 }
