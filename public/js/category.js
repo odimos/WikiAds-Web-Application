@@ -1,8 +1,9 @@
-function informForm(success, username){
+function informForm(success, txt){
     let formSuccess = document.querySelector('#formSuccess');
     if (!success){
-        formSuccess.textContent = 'Login Failed';
-        formSuccess.classList.add('failure')
+        formSuccess.textContent = 'Login Failed: '+txt;
+        formSuccess.classList.add('failure');
+
     } else {
         formSuccess.style.display = "none";
         let welcome = document.querySelector('#welcome');
@@ -10,7 +11,7 @@ function informForm(success, username){
         document.querySelector('#loginForm')
         .style.display = "none";
         let usernameElement = welcome.querySelector('span');
-        usernameElement.textContent = username
+        usernameElement.textContent = txt
     }
 
 }
@@ -54,11 +55,36 @@ function submitFavorite(event){
         "Content-type": "application/json"
       };
 
-    fetch( `favorites/${data.ad.id}` , {
+    fetch( `favorites` , {
         method:'PUT',
         headers,
         body:JSON.stringify(data)
-    });
+    })
+    .then(response=>{
+        if (response.status==200){
+            return response.json();
+
+        } else if (response.status==401 || response.status==409){
+            // authorisation error
+            return response.json()
+            .then(err=>{
+                console.log('Auth Error', err.message);
+                throw new Error(err.message);
+            });
+        } else {
+            console.log(response);
+            throw new Error(`Unexpected Error: ${response.statusText}`);
+        }
+      })
+      .then(data=>{
+        alert("Successfully added to favorites");
+        console.log(data);
+      })
+      .catch(err=>{
+        let alertMsg = "Failed to add to favorites: "+err
+        alert(alertMsg)
+        console.log('Error occured:', err);
+      });
 
     
 }
@@ -82,25 +108,30 @@ function submitFormInit(){
             headers: headers,
             body: JSON.stringify(jsonData)
           })
-          .then(response=> 
-            {
-                if (response.status!=200){
-                    console.log('not auth');
-                    throw new Error(`Error, Status: ${response.status}`);
-                }
+          .then(response=>{
+            if (response.status==200){
                 return response.json();
+
+            } else if (response.status==401){
+                // authorisation error
+                return response.json()
+                .then(err=>{
+                    console.log('Auth Error', err);
+                    throw new Error('Failed Authorisation');
+                });
+            } else {
+                console.log(response);
+                throw new Error(`Unexpected Error: ${response.statusText}`);
             }
-            )
-          .then(data =>{
-            // update the login form
+          })
+          .then(data=>{
             informForm(true, jsonData.username);
             informLocalStorage(jsonData.username, data.sessionId);
             console.log(data);
           })
-          .catch(err=> {
-            // update the login form
-            informForm(false);
-            console.log('err:', err);
+          .catch(err=>{
+            informForm(false,'Failed Authorisation');
+            console.log('Error occured:', err);
           });
     });
 

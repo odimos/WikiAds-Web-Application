@@ -104,3 +104,16 @@ input::placeholder, textarea::placeholder {
 .success{
     background-color: rgba(9, 255, 0, 0.2);
 }
+
+[name="add_favorite"]{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #e74c3c; /* Red color, you can change this */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color transition on hover */
+}
+[name="add_favorite"]:hover {
+    text-shadow: 0 0 10px #e74c3c; /* Add shadow on hover for a subtle effect */
+    transform: scale(1.2);
+}

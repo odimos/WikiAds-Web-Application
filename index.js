@@ -44,8 +44,7 @@ app.post('/login',(req,res)=>{
   } else {
     res.status(401);
     res.type('applicatin/json');
-    let resObj = {};
-    resObj = {'message': req.body};
+    let resObj = {'message': "Authentication Error"};
     answer = JSON.stringify(resObj);
     res.send(answer);
 
@@ -62,12 +61,21 @@ app.put('/favorites', (req,res)=>{
     // add the fav after checking for dubs
     let success = addFavorite(user.username, ad)
     if(success){
-      res.send(200);
+      res.status(200);
+      res.send(JSON.stringify({}));
     } else {
-      res.send(409);
+      res.status(409);
+      res.type('applicatin/json');
+      let resObj = {'message': "Duplication Error, ad already in favorites"};
+      answer = JSON.stringify(resObj);
+      res.send(answer);
     }
   } else {
-    res.send(401);
+    res.status(401);
+    res.type('applicatin/json');
+    let resObj = {'message': "Authentication Error"};
+    answer = JSON.stringify(resObj);
+    res.send(answer);
   }
 });
  
