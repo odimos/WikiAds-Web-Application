@@ -5,3 +5,6 @@ handlebars fucking my objects
 1. html validation
 2. create basic css 
 3. 
+
+
+CSS μόνο για τα subcategories, αν αλλάξεις κάτι ακόμα θα σε σκοτώσω

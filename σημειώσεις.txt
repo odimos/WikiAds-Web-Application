@@ -32,3 +32,4 @@ getcomputedstyle
 
 // gia eksetaseis learn map, kai alles js functions xrisimes, sintaksi k logiki
 find
+style="display: none;"

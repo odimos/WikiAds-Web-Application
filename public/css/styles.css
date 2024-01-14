@@ -5,7 +5,11 @@ body {
     padding: 0;
     margin: 0;
     background-color: rgb(248, 248, 248);
-    font-size: 20px;
+    font-size: 16px;
+}
+
+h1 {
+    text-align: center;
 }
 
 form {
@@ -145,7 +149,8 @@ input::placeholder, textarea::placeholder {
 
 [name="categories"] > li {
     padding: 10px;
-    width: 170px;
+    width: 200px;
+    font-size: 1.2em;
 }
 
 [name="categories"] > li:hover {
@@ -184,7 +189,7 @@ input::placeholder, textarea::placeholder {
     column-gap: 10px;
 }
 
-.adContent .imageFrame{
+ .imageFrame{
     float: left;
     margin: 0 10px;
     width: 150px;
@@ -198,7 +203,7 @@ input::placeholder, textarea::placeholder {
 }
 
 
-.adContent .imageFrame img {
+.imageFrame img {
     height: 200px;
 }
 
@@ -224,7 +229,7 @@ input::placeholder, textarea::placeholder {
     box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.2);
     padding: 10px;
     width: 500px;
-    max-height: 600px;
+    max-height: 400px;
     overflow: auto;
     transition: background-color 0.3s ease;
 
@@ -240,22 +245,30 @@ input::placeholder, textarea::placeholder {
 }
 
 nav{
-    position: absolute;
-    top: 0;
+
     background-color: #d32916;
     transition: transform 0.3s ease;
     transform: rotate(20deg);
 }
 
-nav a{
-    font-size: 1.4em;
+nav span{
+    font-size: 1.8em;
     text-align: center;    
     transition: transform 0.3s ease;
-    padding: 11px 2.1em 10px 2em;
+    padding: 11px 2.1em 15px 2em;
     border-bottom: 2px solid black;
     display: inline-block;
     transform: rotate(-40deg);
 
+}
+
+#linkWrap{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: block;
+    z-index: 20;
+    cursor: pointer;
 }
 
 [name="menu_option"]{
@@ -263,13 +276,13 @@ nav a{
 
 }
 
-nav:hover{
+#linkWrap:hover > nav{
     transform: rotate(0deg);
     transition: transform 0.3s ease;
 }
 
 
-nav:hover > a{
+#linkWrap:hover > nav > span{
     transform: rotate(0deg);
     transition: transform 0.3s ease;
 }
@@ -300,7 +313,27 @@ nav:hover > a{
 }
 
 #navWrap .messageContainer h3 {
-    padding-right: 1em;
+    padding-right: 1.5em;
+}
+
+#favorites{
+    border-radius: 5px;
+    border-color: 2px solid black;
+    background-color: rgb(127, 255, 133);
+    padding: 20px;
+    font-size: 1.2em;
+    width: 200px;
+    display: block;
+    text-align: center;
+    margin: 10px auto;
+}
+
+#favorites:hover{
+    background-color: rgb(59, 223, 67);
+}
+
+.gallery img{
+    width: 0;
 }
 
 @media (max-width: 800px){
@@ -316,13 +349,17 @@ nav:hover > a{
     #navWrap{
         height: auto;
     }
+    #linkWrap{
+        position: relative;
+
+    }
     nav{
         position: relative;
         transform: rotate(0deg);
         margin-bottom: 0;
         background-color: black;
     }
-    nav a{
+    nav span{
         transform: rotate(0deg);
     }
 

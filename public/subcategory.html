@@ -11,16 +11,28 @@
 
 </head>
 <body>
-    <h1>SubCategory id: <span id="Subcategory_id"></span></h1>
+    <div id="navWrap">
+        <a href="./" id="linkWrap">
+            <nav><span name="menu_option" class="clean-a" href="./">Home</span></nav>
+        </a>
+        <div class="messageContainer">
+            <h3>Welcome</h3>
+        </div>
+    </div>
+    <div class="marginMenuElement"></div>
+
     <script id="Subcategory-template" type="text/x-handlebars-template">
-        <ul>
+        <ul name="ads">
             {{#each ads}}
-            <li>
+            <li name="categoryAd">
                 <h2>{{title}}</h2>
                 <p>{{description}}</p>
+                <div class="gallery">
                 {{#each images}}
                     <img src="https://wiki-ads.onrender.com/{{this}}">
                 {{/each}}
+                </div>
+
                 <p>{{cost}}</p>
                 <!--table - features-->
                 <table>
@@ -39,7 +51,6 @@
         //access to url params
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-        document.querySelector('#Subcategory_id').textContent = id;
         getAdsFromSubCategory(id)
         .then(ads=>{
             // handlebars

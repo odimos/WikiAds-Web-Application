@@ -6,20 +6,35 @@
     <title>Favorite</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <script src="static/js/favorites.js"></script>
+    <link rel="stylesheet" href="static/css/styles.css">
 
 </head>
 <body>
+    <div id="navWrap">
+        <a href="./" id="linkWrap">
+            <nav><span name="menu_option" class="clean-a" href="./">Home</span></nav>
+        </a>
+        <div class="messageContainer">
+            <h3>Welcome</h3>
+        </div>
+    </div>
+    <div class="marginMenuElement"></div>
 
     <h1>Favorites</h1>
 
     <script id="favorites-template" type="text/x-handlebars-template">
         <ul>
             {{#each ads}}
-            <li>
+            <li name="categoryAd">
                 <h2 name="title">{{title}}</h2>
-                <p name="description">{{description}}</p>
-                <img name="image" src="{{image}}">
-                <p name="cost">{{cost}}</p>
+                <div class="adContent">
+                    <div class="imageFrame">
+                        <img name="image" src="{{image}}">
+                    </div>
+                    <p name="description">{{description}}</p>
+                </div>
+                <p name="cost"> <b>{{cost}} €</b></p>
+                <div class="clearElement"></div>
             </li>
             {{/each}}
         </ul>

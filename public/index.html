@@ -9,9 +9,18 @@
     <link rel="stylesheet" href="static/css/styles.css">
 </head>
 <body>
+    <div id="navWrap">
+        <a href="./" id="linkWrap">
+            <nav><span name="menu_option" class="clean-a" href="./">Home</span></nav>
+        </a>
+        <div class="messageContainer">
+            <h3>Welcome</h3>
+        </div>
+    </div>
+    <div class="marginMenuElement"></div>
 
     <script id="categories-template" type="text/x-handlebars-template">
-        <ul class="clean-ul " name="categories">
+        <ul class="clean-ul" name="categories">
         {{#each categories}}
             <li>
             <div class="">

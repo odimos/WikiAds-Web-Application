@@ -21,12 +21,15 @@
 <body>
 
     <div id="navWrap">
-        <nav><a name="menu_option" class="clean-a" href="./">Home</a></nav>
+        <a href="./" id="linkWrap">
+            <nav><span name="menu_option" class="clean-a" href="./">Home</span></nav>
+        </a>
         <div class="messageContainer">
             <h3>Welcome</h3>
         </div>
     </div>
     <div class="marginMenuElement"></div>
+    
     <form id="loginForm" >
         <span>
             <input type="text" id="username" name="username" placeholder="username">
@@ -37,7 +40,8 @@
     </form>
         <p id="formSuccess"></p>
         <p id="welcome" class="success" style="display:none;">Welcome <span></span> </p>
-<a id="favorites" style="display: none;" href="">Favorites</a>
+
+        <a id="favorites" style="display: none;" class="clean-a"  href="">favorites</a>
  
     <script id="category-template" type="text/x-handlebars-template">
         <ul class="categories clean-ul" name="ads">
