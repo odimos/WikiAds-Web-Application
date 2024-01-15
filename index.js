@@ -5,8 +5,6 @@ const express = require('express');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-const {authenticate, authenticateSession, updateCurrentSession, addFavorite, getFavorites} = require('./user.js');
-
 const app = express();
 
 // Serve static files from the 'public' directory
@@ -79,7 +77,6 @@ app.put('/favorites', async (req,res)=>{
 
     // any errors here will return as 500 internal error
     const result = await collection.findOneAndUpdate(filter, update, { returnDocument: 'after' });
-    console.log(result.value);
     
     if(result.value){
       res.status(200);
@@ -131,7 +128,6 @@ getClient.then(async r=>{
   let CLIENT = r;
   let db = CLIENT.db('wikiAPI');
   collection = db.collection('users') ;
-  //console.log(collection)
 })
 .catch(console.dir); // console.log(err=>console.log(err))
 
