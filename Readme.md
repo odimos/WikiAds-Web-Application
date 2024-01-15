@@ -1,6 +1,6 @@
-# Project Name
+# Wiki API
 
-Description of your demo project.
+Description
 
 ## Demo Credentials
 
@@ -17,8 +17,6 @@ Feel free to use the following credentials for demonstration purposes:
 - Password: 111
 
 ## Usage
-
-Explain how users can utilize the demo credentials in your project.
 
 ## Contributing
 

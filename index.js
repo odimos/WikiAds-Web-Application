@@ -1,6 +1,7 @@
 const { ObjectId } = require('mongodb');
+const {userDAO} = require('./users')
 
-const {getClient} = require('./serverFunctions');
+let {getClient, collection} = require('./serverFunctions');
 const express = require('express');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
@@ -10,8 +11,6 @@ const app = express();
 // Serve static files from the 'public' directory
 app.use('/static',express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-
-let collection = null;
 
 app.get('/category', function (req, res) {
     res.sendFile('public/category.html', { root: __dirname });
@@ -123,11 +122,10 @@ const port =  3000;
 // after promise resolved it is a client object
 // app.listen called after connecting with client ensures that no rest calls will be made to nodejs
 // before it has connected with atlas
-getClient.then(async r=>{
+getClient.then(async client=>{ // this should be inside DAO
   app.listen(port,()=>console.log('Listening to port: ', port));
-  let CLIENT = r;
-  let db = CLIENT.db('wikiAPI');
-  collection = db.collection('users') ;
+  collection = client.db('wikiAPI').collection('users');
+  userDAO.collection = collection;
 })
 .catch(console.dir); // console.log(err=>console.log(err))
 

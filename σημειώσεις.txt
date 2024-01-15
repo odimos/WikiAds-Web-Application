@@ -26,10 +26,6 @@ innerHTML, outerHTML
 • HTML tags που τυχόν περιέχονται στο κείμενο, εμφανίζονται ως απλό κείμενο, δεν
 ενσωματώνονται στο έγγραφο,
 
-getcomputedstyle
 
-.disabled = t/f gia css links
-
-// gia eksetaseis learn map, kai alles js functions xrisimes, sintaksi k logiki
+//  map, kai alles js functions xrisimes, sintaksi k logiki
 find
-style="display: none;"

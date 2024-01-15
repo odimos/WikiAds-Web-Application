@@ -6,12 +6,8 @@ CSS μόνο για τα subcategories, αν αγγίξεις για άλλο CS
 
 HTML, CSS validation
 
-Δέσ' το με κανονική βάση
-
 Για τα DAO objects
 
-ip mongodb
-
-images id from galleries?
-
+images links from galleries?
+Πίνακες
 logika routes?
