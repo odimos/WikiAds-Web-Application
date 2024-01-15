@@ -21,6 +21,5 @@ async function run() {
 }
 
 module.exports = {
-  getClient: run(),
-  collection: null
+  getClient: run()
 }

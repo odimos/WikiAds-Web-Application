@@ -1,13 +1,10 @@
 handlebars fucking my objects
 -----
 
-CSS μόνο για τα subcategories, αν αγγίξεις για άλλο CSS θα φύγει μαχαίρι
+CSS μόνο για τα subcategories: pinakes, gallery, αν αγγίξεις για άλλο CSS θα φύγει μαχαίρι
 -> Πίνακας και Εικόνες
 
 HTML, CSS validation
 
-Για τα DAO objects
-
 images links from galleries?
-Πίνακες
 logika routes?

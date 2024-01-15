@@ -1,7 +1,6 @@
-const { ObjectId } = require('mongodb');
 const {userDAO} = require('./users')
 
-let {getClient, collection} = require('./serverFunctions');
+let {getClient} = require('./serverFunctions');
 const express = require('express');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
@@ -30,19 +29,16 @@ app.get('/', function (req, res) {
 
 app.post('/login',async (req,res)=>{
   // test authenticity req.body
-  let auth_user = await collection.findOne({ username: req.body.username, password: req.body.password  });
+  let auth_user = await userDAO.authenticateLogin(req.body.username, req.body.password );
+
   if (auth_user) {
     res.status(200);
     res.type('applicatin/json');
     let resObj = {};
     resObj.sessionId = uuidv4();
     let answer = JSON.stringify(resObj);
-
-    const filter = { _id: new ObjectId(auth_user._id) };
-    const update = { $set: { currentSessionId: resObj.sessionId } };
-
     // any errors here will return as 500 internal error
-    const result = await collection.findOneAndUpdate(filter, update, { returnDocument: 'after' });
+    const result = await userDAO.updateSession(auth_user._id, resObj.sessionId )
   
     res.send(answer);
   } else {
@@ -59,23 +55,11 @@ app.post('/login',async (req,res)=>{
 app.put('/favorites', async (req,res)=>{
   let {ad, user} = req.body;
   // athenticate the session
-  let auth_user = await collection.findOne({ 
-    username: user.username, currentSessionId: user.sessionId 
-  });
+  let auth_user = await userDAO.authenticateSession(user.username, user.sessionId);
 
   if (auth_user){
-    // add the fav after checking for dubs
-    // let success = addFavorite(user.username, ad)
-    const filter = { 
-      _id: new ObjectId(auth_user._id) ,
-      // in the array type fiels named favorites, to NOT have element match to the uniqueField, 
-      ["favorites"]: { $not: { $elemMatch: { ["id"]: ad["id"] } } }
-
-    };
-    const update = { $push: { ["favorites"]: ad } };
-
     // any errors here will return as 500 internal error
-    const result = await collection.findOneAndUpdate(filter, update, { returnDocument: 'after' });
+    const result = await userDAO.addToFavorites(auth_user._id, ad);
     
     if(result.value){
       res.status(200);
@@ -98,15 +82,13 @@ app.put('/favorites', async (req,res)=>{
  
 app.post('/showfavorites', async (req, res)=>{
   // athenticate the session
-  let auth_user = await collection.findOne({ 
-    username: req.body.username, currentSessionId: req.body.sessionId
-  });
-
+  let auth_user = await userDAO.authenticateSession(req.body.username, req.body.sessionId)
+  console.log()
   if (auth_user){
     const favs = auth_user.favorites;
     res.status(200);
     res.type('applicatin/json');
-    res.send( JSON.stringify(favs) );
+    res.send( JSON.stringify(auth_user.favorites) );
   } else { 
     res.status(401);
     res.type('applicatin/json');
@@ -124,7 +106,7 @@ const port =  3000;
 // before it has connected with atlas
 getClient.then(async client=>{ // this should be inside DAO
   app.listen(port,()=>console.log('Listening to port: ', port));
-  collection = client.db('wikiAPI').collection('users');
+  let collection = client.db('wikiAPI').collection('users');
   userDAO.collection = collection;
 })
 .catch(console.dir); // console.log(err=>console.log(err))
