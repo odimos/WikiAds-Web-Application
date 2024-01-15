@@ -1,3 +1,6 @@
+const { ObjectId } = require('mongodb');
+
+const {getClient} = require('./serverFunctions');
 const express = require('express');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
@@ -9,6 +12,8 @@ const app = express();
 // Serve static files from the 'public' directory
 app.use('/static',express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+
+let collection = null;
 
 app.get('/category', function (req, res) {
     res.sendFile('public/category.html', { root: __dirname });
@@ -26,17 +31,21 @@ app.get('/', function (req, res) {
   res.sendFile('public/index.html', { root: __dirname });
 });
 
-app.post('/login',(req,res)=>{
+app.post('/login',async (req,res)=>{
   // test authenticity req.body
-  let auth_user_id = authenticate(req.body.username, req.body.password );
-  if (auth_user_id) {
+  let auth_user = await collection.findOne({ username: req.body.username, password: req.body.password  });
+  if (auth_user) {
     res.status(200);
     res.type('applicatin/json');
     let resObj = {};
     resObj.sessionId = uuidv4();
     let answer = JSON.stringify(resObj);
 
-    updateCurrentSession(auth_user_id, resObj.sessionId );
+    const filter = { _id: new ObjectId(auth_user._id) };
+    const update = { $set: { currentSessionId: resObj.sessionId } };
+
+    // any errors here will return as 500 internal error
+    const result = await collection.findOneAndUpdate(filter, update, { returnDocument: 'after' });
   
     res.send(answer);
   } else {
@@ -50,15 +59,29 @@ app.post('/login',(req,res)=>{
 
 });
 
-app.put('/favorites', (req,res)=>{
+app.put('/favorites', async (req,res)=>{
   let {ad, user} = req.body;
   // athenticate the session
-  let authSess = authenticateSession(user.username, user.sessionId);
+  let auth_user = await collection.findOne({ 
+    username: user.username, currentSessionId: user.sessionId 
+  });
 
-  if (authSess){
+  if (auth_user){
     // add the fav after checking for dubs
-    let success = addFavorite(user.username, ad)
-    if(success){
+    // let success = addFavorite(user.username, ad)
+    const filter = { 
+      _id: new ObjectId(auth_user._id) ,
+      // in the array type fiels named favorites, to NOT have element match to the uniqueField, 
+      ["favorites"]: { $not: { $elemMatch: { ["id"]: ad["id"] } } }
+
+    };
+    const update = { $push: { ["favorites"]: ad } };
+
+    // any errors here will return as 500 internal error
+    const result = await collection.findOneAndUpdate(filter, update, { returnDocument: 'after' });
+    console.log(result.value);
+    
+    if(result.value){
       res.status(200);
       res.send(JSON.stringify({}));
     } else {
@@ -77,10 +100,14 @@ app.put('/favorites', (req,res)=>{
   }
 });
  
-app.post('/showfavorites', function (req, res){
-  let authSess = authenticateSession(req.body.username, req.body.sessionId);
-  if (authSess){
-    const favs = getFavorites(req.body.username);
+app.post('/showfavorites', async (req, res)=>{
+  // athenticate the session
+  let auth_user = await collection.findOne({ 
+    username: req.body.username, currentSessionId: req.body.sessionId
+  });
+
+  if (auth_user){
+    const favs = auth_user.favorites;
     res.status(200);
     res.type('applicatin/json');
     res.send( JSON.stringify(favs) );
@@ -94,7 +121,18 @@ app.post('/showfavorites', function (req, res){
 });
 
 const port =  3000;
-app.listen(port, ()=>{
-  console.log('Start listening localhost:'+port)
+
+// get client is a returned promise from the call of run() function, not a function
+// after promise resolved it is a client object
+// app.listen called after connecting with client ensures that no rest calls will be made to nodejs
+// before it has connected with atlas
+getClient.then(async r=>{
+  app.listen(port,()=>console.log('Listening to port: ', port));
+  let CLIENT = r;
+  let db = CLIENT.db('wikiAPI');
+  collection = db.collection('users') ;
+  //console.log(collection)
 })
+.catch(console.dir); // console.log(err=>console.log(err))
+
 

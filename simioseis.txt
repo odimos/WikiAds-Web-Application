@@ -9,3 +9,9 @@ HTML, CSS validation
 Δέσ' το με κανονική βάση
 
 Για τα DAO objects
+
+ip mongodb
+
+images id from galleries?
+
+logika routes?

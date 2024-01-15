@@ -1,50 +1,29 @@
- function getCategories(){
-    return getData('https://wiki-ads.onrender.com/categories');
-  }
+require('dotenv').config();
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
-  function test(){
-    console.log('test')
-  }
-  
-   function getSubCategoriesOfCategory(id){
-    return getData(`https://wiki-ads.onrender.com/categories/${id}/subcategories`);
-  }
-  
-   function getSubCategories(){
-    return getData('https://wiki-ads.onrender.com/subcategories');
-  
-  }
-  
-   function getAdsFromSubCategory(id){
-    return getData(`https://wiki-ads.onrender.com/ads?subcategory=${id}`);
-  
-  }
-  
-   function getAdsFromCategory(id){
-    return getData(`https://wiki-ads.onrender.com/ads?category=${id}`);
-  
-  }
-  
-   function getData(url){
-    const headers = {
-        'Accept': 'application/json',
-      };
-      
-      return fetch(url, {
-          method:'GET',
-          headers: headers,
-      })
-      .then(response=>{
-        return response.json();
-      })
-      .then(text=>{
-        //console.log(text);
-        return text;
-      })
-      .catch(response=>{
-        //console.log(response);
-        return null;
-      })
-  }
+const uri = process.env.URI;
 
-  module.exports = {getCategories, getSubCategories, test, getAdsFromCategory}
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+async function run() {
+  
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    return client
+  
+}
+
+
+
+module.exports = {
+  getClient: run()
+}
