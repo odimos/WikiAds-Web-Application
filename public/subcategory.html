@@ -29,13 +29,15 @@
                 <p>{{description}}</p>
                 <div class="gallery">
                 {{#each images}}
-                    <img src="https://wiki-ads.onrender.com/{{this}}">
+                    <div class="imageFrame">
+                        <img name="image" src="https://wiki-ads.onrender.com/{{this}}">
+                    </div>
                 {{/each}}
                 </div>
 
-                <p>{{cost}}</p>
+                <p name="cost"> <b>{{cost}} €</b></p>
                 <!--table - features-->
-                <table>
+                <table name="specs">
                     <tr>
                         {{#each featuresArray}}
                             <td> {{this}} </td>

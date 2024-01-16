@@ -3,8 +3,17 @@ handlebars fucking my objects
 
 CSS μόνο για τα subcategories: pinakes, gallery, αν αγγίξεις για άλλο CSS θα φύγει μαχαίρι
 -> Πίνακας και Εικόνες
+-- images me flexbox
+-- mail gia ton pinaka -specs
 
 HTML, CSS validation
 
 images links from galleries?
 logika routes?
+
+footer
+
+--
+
+2h left
+one more user

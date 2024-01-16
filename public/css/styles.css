@@ -232,7 +232,7 @@ input::placeholder, textarea::placeholder {
     padding: 10px;
     width: 500px;
     max-height: 400px;
-    overflow: auto;
+    overflow: hidden auto;
     background-color: rgb(252, 252, 252);
     transition: background-color 0.1s ease;
     display: inline-block;
@@ -330,8 +330,10 @@ nav span{
     background-color: rgb(59, 223, 67);
 }
 
-.gallery img{
-    width: 0;
+.gallery{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
 }
 
 #gridWrapper{
@@ -369,6 +371,24 @@ main{
     padding: 10px 10px;
 }
 
+[name="specs"]{
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto;
+  }
+
+  [name="specs"] tr {
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+  }
+    
+  [name="specs"] td{
+    border: 1px solid #292929;
+    text-align: left;
+    padding: 8px;
+    margin: 2px;
+  }
 
 @media (max-width: 800px){
     body {
