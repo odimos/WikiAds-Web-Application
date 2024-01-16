@@ -45,6 +45,4 @@ window.onload = ()=>{
         console.log(err)
     })
 
-
-
 }

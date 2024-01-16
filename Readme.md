@@ -20,4 +20,4 @@
 - Username: vasso
 - Password: 111
 
-[Εκφώνιση](webdev-assignment-2 - 2023-24.pdf)
+[Εκφώνιση](project.pdf)

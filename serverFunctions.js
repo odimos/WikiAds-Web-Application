@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
+// From the official mondoDB documentation
+
 const uri = process.env.URI;
 
 const client = new MongoClient(uri, {

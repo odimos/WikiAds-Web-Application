@@ -42,9 +42,9 @@ function test(){
       //console.log(text);
       return text;
     })
-    .catch(response=>{
+    .catch(err=>{
       //console.log(response);
-      return null;
+      return err;
     })
 }
 

@@ -2,5 +2,3 @@
 HTML, CSS validation
 
 logika routes?
-
-remove any chatgpt shit
