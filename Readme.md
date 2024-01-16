@@ -1,10 +1,14 @@
-# Wiki API
+# App for WikiAps API
 
-Description
+Χρήση του API της υπηρεσίας μικρών αγγελιών WikiApps για τη δημιουργία μίας εφαρμογής που υποστηρίζει πλοήγηση σε κατηγορίες και υποκατηγορίες αγγελιών, προσθήκη αγγελιών στα αγαπημένα, 
+προβολή αγαπημένων αγγελιών και φιλτράρισμα αγγελιών βάσει υποκατηγορίας.
+Η εφαρμογή χρησιμοποιεί βάση δεδομένων mongoDB στην πλατφόρμα atlas.
+Τα credentials για σύνδεση στη βάση δεδομένων δίνονται στο αρχείο ".env"
 
-## Demo Credentials
+Η παραπάνω εφαρμογή πραγματοποιήθηκε στα πλαίσια της 2ης εργασίας του μαθήματος "Τεχνολογίες και Προγραμματισμός Εφαρμογών στον Ιστό". 
+Σύμφωνα με σχολιαστές, θεωρείται η καλύτερη εργασία του 2024.
 
-Feel free to use the following credentials for demonstration purposes:
+## Demo users
 
 ### Mitsos
 
@@ -16,12 +20,3 @@ Feel free to use the following credentials for demonstration purposes:
 - Username: vasso
 - Password: 111
 
-## Usage
-
-## Contributing
-
-...
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
