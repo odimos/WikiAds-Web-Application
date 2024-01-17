@@ -270,12 +270,9 @@ nav span{
     cursor: pointer;
 }
 
-[name="menu_option"]{
-    color: rgb(255, 255, 255);
-
+#linkWrap > nav > span{
+    color: white;
 }
-
-
 
 #linkWrap:hover > nav > span{
     color: yellow;
@@ -312,7 +309,6 @@ nav span{
 
 #favorites{
     border-radius: 5px;
-    border-color: 2px solid black;
     background-color: rgb(127, 255, 133);
     padding: 20px;
     font-size: 1.2em;

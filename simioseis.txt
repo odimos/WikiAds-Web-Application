@@ -1,4 +1,0 @@
-Πίνακας με τα χαρακτηριστικά, είναι σωστά;
-HTML, CSS validation
-
-logika routes?

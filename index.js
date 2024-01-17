@@ -7,7 +7,6 @@ const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
-// Serve static files from the 'public' directory
 app.use('/static',express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
@@ -70,12 +69,11 @@ app.post('/showfavorites', async (req, res)=>{
   }
 });
 
-const port =  3000;
-
 // get client is a returned promise from the call of run() function, not a function
 // after promise resolved it is a client object
 // app.listen called after connecting with client ensures that no rest calls will be made to nodejs
 // before it has connected with atlas
+const port =  3000;
 getClient.then(async client=>{ // this should be inside DAO
   app.listen(port,()=>console.log('Listening to port: ', port));
   let collection = client.db('wikiAPI').collection('users');
