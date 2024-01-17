@@ -11,90 +11,62 @@ const app = express();
 app.use('/static',express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-app.get('/category', function (req, res) {
-    res.sendFile('public/category.html', { root: __dirname });
-});
+function serveStatic(res, file){
+  res.sendFile(`public/${file}.html`, { root: __dirname });
+}
 
-app.get('/subcategory', function (req, res) {
-  res.sendFile('public/subcategory.html', { root: __dirname });
-});
+app.get('/category', (req, res) => serveStatic(res, 'category'));
+app.get('/subcategory', (req, res) => serveStatic(res, 'subcategory'));
+app.get('/favorites', (req, res) => serveStatic(res, 'favorite-ads'));
+app.get('/', (req, res) => serveStatic(res, 'index'));
 
-app.get('/favorites', function (req, res){
-  res.sendFile('public/favorite-ads.html', {root:__dirname})
-})
-
-app.get('/', function (req, res) {
-  res.sendFile('public/index.html', { root: __dirname });
-});
 
 app.post('/login',async (req,res)=>{
-  // test authenticity req.body
-  let auth_user = await userDAO.authenticateLogin(req.body.username, req.body.password );
-
-  if (auth_user) {
-    res.status(200);
-    res.type('applicatin/json');
-    let resObj = {};
-    resObj.sessionId = uuidv4();
-    let answer = JSON.stringify(resObj);
-    // any errors here will return as 500 internal error
-    const result = await userDAO.updateSession(auth_user._id, resObj.sessionId )
-  
-    res.send(answer);
-  } else {
-    res.status(401);
-    res.type('applicatin/json');
-    let resObj = {'message': "Authentication Error"};
-    answer = JSON.stringify(resObj);
-    res.send(answer);
-
-  };
-
+  try {
+    const auth_user = await userDAO.authenticateLogin(req.body.username, req.body.password );
+    if (auth_user) {
+      //res.type('applicatin/json'); dont need
+      const sessionId = uuidv4();
+      // any errors here will return as 500 internal error
+      await userDAO.updateSession(auth_user._id, sessionId )
+      res.status(200).json({sessionId});
+    } else {
+      res.status(401).json({ message: 'Authentication Error' });
+    };  
+  } catch {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
 
 app.put('/favorites', async (req,res)=>{
-  let {ad, user} = req.body;
-  // athenticate the session
-  let auth_user = await userDAO.authenticateSession(user.username, user.sessionId);
-
-  if (auth_user){
-    // any errors here will return as 500 internal error
-    const result = await userDAO.addToFavorites(auth_user._id, ad);
-    
-    if(result.value){
-      res.status(200);
-      res.send(JSON.stringify({}));
+  try {
+    const {ad, user} = req.body;
+    const auth_user = await userDAO.authenticateSession(user.username, user.sessionId);
+    if (auth_user){
+      const result = await userDAO.addToFavorites(auth_user._id, ad);
+      if(result.value){
+        res.status(200).json({});
+      } else {
+        res.status(409).json({ message: 'Duplication Error, ad already in favorites' });
+      }
     } else {
-      res.status(409);
-      res.type('applicatin/json');
-      let resObj = {'message': "Duplication Error, ad already in favorites"};
-      answer = JSON.stringify(resObj);
-      res.send(answer);
+      res.status(401).json({ message: 'Authentication Error' });
     }
-  } else {
-    res.status(401);
-    res.type('applicatin/json');
-    let resObj = {'message': "Authentication Error"};
-    answer = JSON.stringify(resObj); 
-    res.send(answer);
+  }catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
  
 app.post('/showfavorites', async (req, res)=>{
-  // athenticate the session
-  let auth_user = await userDAO.authenticateSession(req.body.username, req.body.sessionId)
-  console.log()
-  if (auth_user){
-    const favs = auth_user.favorites;
-    res.status(200);
-    res.type('applicatin/json');
-    res.send( JSON.stringify(auth_user.favorites) );
-  } else { 
-    res.status(401);
-    res.type('applicatin/json');
-    let resObj = {'message': "Authentication Error"};
-    answer = JSON.stringify(resObj); 
-    res.send(answer);
+  try {
+    const auth_user = await userDAO.authenticateSession(req.body.username, req.body.sessionId)
+    if (auth_user){
+      res.status(200).json(auth_user.favorites);
+    } else { 
+      res.status(401).json({ message: 'Authentication Error' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 

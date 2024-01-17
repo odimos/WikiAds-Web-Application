@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongodb');
 
+// Old school JavaScript class, the way God intended
 function UserDAO(){
     this.collection = null;
 
