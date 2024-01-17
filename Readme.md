@@ -10,7 +10,7 @@
 
 ## Usage
 Open the location on command line.  
-Enter "node node.js" to start the server.  
+Enter "node index.js" to start the server.  
 If everything goes well you will see on cmd  
 "You successfully connected to MongoDB!  
 Listening to port:  3000"  
