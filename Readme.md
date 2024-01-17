@@ -8,13 +8,13 @@
 Η παραπάνω εφαρμογή πραγματοποιήθηκε στα πλαίσια της 2ης εργασίας του μαθήματος "Τεχνολογίες και Προγραμματισμός Εφαρμογών στον Ιστό". 
 Σύμφωνα με σχολιαστές, θεωρείται η καλύτερη εργασία του 2024.
 
-### Usage
-Open the location on command line.
-Enter "node node.js" to start the server.
-If everything goes well you will see on cmd
-"You successfully connected to MongoDB!
-Listening to port:  3000"
-Go to localhost:3000 and enjoy the app!
+## Usage
+Open the location on command line.  
+Enter "node node.js" to start the server.  
+If everything goes well you will see on cmd  
+"You successfully connected to MongoDB!  
+Listening to port:  3000"  
+Go to localhost:3000 and enjoy the app!  
 
 ## Demo users
 
