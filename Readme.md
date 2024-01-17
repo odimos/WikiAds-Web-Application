@@ -28,4 +28,4 @@ Go to localhost:3000 and enjoy the app!
 - Username: vasso
 - Password: 111
 
-[Εκφώνιση](project.pdf)
+[Εκφώνηση](project.pdf)
