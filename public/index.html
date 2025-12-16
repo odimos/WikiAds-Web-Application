@@ -26,6 +26,7 @@
         </div>
     </div>
     <div class="marginMenuElement"></div>
+    <div class="spinner"></div>
 <div class="marginMenuElement"></div>
 
     <form id="loginForm" >
@@ -75,6 +76,10 @@
     
 
     <script>
+        let spinner = document.querySelector('.spinner');
+        const spinnerTimer = setTimeout(() => {
+            spinner.style.display = "block";
+        }, 400);
 
         Promise.all([getCategories(), getSubCategories()])
         .then(([categories, subcategories]) => {
@@ -94,6 +99,8 @@
             let html = template(data );
             let main = document.body.querySelector('#forHandle');
             main.innerHTML += html;
+            clearTimeout(spinnerTimer);
+            spinner.style.display = "none";
 
         });
       </script>
