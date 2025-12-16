@@ -55,6 +55,42 @@ app.put('/favorites', async (req,res)=>{
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+app.delete('/favorites', async (req, res) => {
+  try {
+    const { ad, user } = req.body;
+
+    const auth_user = await userDAO.authenticateSession(
+      user.username,
+      user.sessionId
+    );
+
+    if (!auth_user) {
+      return res.status(401).json({ message: 'Authentication Error' });
+    }
+
+    const filter = { _id: auth_user._id };
+    const update = {
+      $pull: { favorites: { id: ad.id } }
+    };
+
+    const result = await userDAO.collection.findOneAndUpdate(
+      filter,
+      update,
+      { returnDocument: 'after' }
+    );
+
+    if (result.value) {
+      res.status(200).json({});
+    } else {
+      res.status(404).json({ message: 'Ad not found in favorites' });
+    }
+
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
  
 app.post('/showfavorites', async (req, res)=>{
   try {
@@ -65,6 +101,22 @@ app.post('/showfavorites', async (req, res)=>{
       res.status(401).json({ message: 'Authentication Error' });
     }
   } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+app.post('/logout', async (req, res) => {
+  try {
+    const { username, sessionId } = req.body;
+
+    const auth_user = await userDAO.authenticateSession(username, sessionId);
+    if (!auth_user) {
+      return res.status(401).json({ message: 'Authentication Error' });
+    }
+
+    await userDAO.updateSession(auth_user._id, null);
+    res.status(200).json({});
+  } catch {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });

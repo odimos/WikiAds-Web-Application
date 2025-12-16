@@ -19,6 +19,31 @@ form {
 }
 
 
+#loggedBar {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#logoutBtn{
+    margin-left: 10px;
+    padding: 20px;
+    font-size: 1.2em;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(255, 100, 100);
+}
+
+#logoutBtn:hover{
+    background-color: rgb(255, 0, 0);
+    color: white;
+    transition: 0.2s;
+}
+
+
 
 form fieldset {
   margin-bottom: 20px;
@@ -313,9 +338,9 @@ nav span{
     padding: 20px;
     font-size: 1.2em;
     width: 200px;
-    display: block;
+    display: inline-block;
     text-align: center;
-    margin: 10px auto;
+
 }
 
 #favorites:hover{

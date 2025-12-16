@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favorite</title>
+    <script>
+        const myGlobalvariables = {
+            username: undefined,
+            sessionId: undefined
+        };
+    </script>
+        <script src="static/js/login.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-    <script src="static/js/favorites.js"></script>
+    <script src="static/js/main.js"></script>
     <link rel="stylesheet" href="static/css/styles.css">
 
 </head>
@@ -19,6 +26,9 @@
         </div>
     </div>
     <div class="marginMenuElement"></div>
+    <div id="loggedBar">
+        <button id="logoutBtn" style="display:none;">Logout</button>
+    </div>
 
     <h1>Favorites</h1>
 
@@ -26,7 +36,10 @@
         <ul name="ads">
             {{#each ads}}
             <li name="categoryAd">
-                <h2 name="title">{{title}}</h2>
+                <div class="adLezanta">
+                            <h2 name="title">{{title}}</h2>
+                            <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event, 'remove')" >❌</button>
+                        </div>
                 <div class="adContent">
                     <div class="imageFrame">
                         <img name="image" src="{{image}}">
@@ -39,6 +52,12 @@
             {{/each}}
         </ul>
     </script>
+
+    <script>
+        let loggedIn = checkIfLoggedIn();
+        submitFormInit();
+    </script>
+    <script src="static/js/favorites.js"></script>
 
 </body>
 </html>

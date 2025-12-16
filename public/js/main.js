@@ -65,3 +65,72 @@ function createCategorymap(categories, subcategories){
 }
 
 
+
+function submitFavorite(event, toDo){
+
+    let username = myGlobalvariables.username;
+    let sessionId = myGlobalvariables.sessionId;
+    // check client-side if logged 
+    if (!sessionId){
+        alert('Παρακαλώ συνδεθείτε για προσθήκη στη λίστα αγαπημένων');
+        return;
+    }
+
+    const btn = event.target;
+    let liData = btn.parentElement.parentElement;
+    let data = {
+        'ad':{
+            "image":liData.querySelector(`[name="image"]`).src,
+            "id": btn.dataset.ad_id  
+        },
+        user:{
+            username, sessionId
+        }
+    };
+    ['title', 'description', 'cost'].forEach(attribute_name=>{
+            data.ad[attribute_name] = 
+            liData.querySelector(`[name="${attribute_name}"]`).textContent
+    });
+    console.log(data);
+    const headers = {
+        "Content-type": "application/json"
+      };
+    const method = toDo === 'add' ? 'PUT' : 'DELETE';
+
+    fetch( `favorites` , {
+        method: method,
+        headers,
+        body:JSON.stringify(data)
+    })
+    .then(response=>{
+        if (response.status==200){
+            return response.json();
+
+        } else if (response.status==401 || response.status==409){
+            // authorisation error
+            return response.json()
+            .then(err=>{
+                console.log('Auth Error', err.message);
+                throw new Error(err.message);
+            });
+        } else {
+            console.log(response);
+            throw new Error(`Unexpected Error: ${response.statusText}`);
+        }
+      })
+      .then(data=>{
+        alert(`Successfully ${toDo} to favorites`);
+        if (toDo === 'remove'){
+            // remove from DOM
+            btn.parentElement.parentElement.remove();
+        }
+        console.log(data);
+      })
+      .catch(err=>{
+        let alertMsg = `Failed to ${toDo} to favorites: `+err
+        alert(alertMsg)
+        console.log('Error occured:', err);
+      });
+
+    
+}

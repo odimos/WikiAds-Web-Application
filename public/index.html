@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <script>
+        const myGlobalvariables = {
+            username: undefined,
+            sessionId: undefined
+        };
+    </script>
+    <script src="static/js/login.js"></script>
     <script src="static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <link rel="stylesheet" href="static/css/styles.css">
+    
 </head>
 <body>
     <div id="navWrap">
@@ -18,28 +26,54 @@
         </div>
     </div>
     <div class="marginMenuElement"></div>
+<div class="marginMenuElement"></div>
 
+    <form id="loginForm" >
+        <span>
+            <input type="text" id="username" name="username" placeholder="username">
+            <input type="password" id="password" name="password" placeholder="password">
+        </span>
+
+        <input class="submit-btn" id="submitlogin" type="submit" value="login">
+    </form>
+
+    
+    <p id="formSuccess"></p>
+    <p id="welcome" class="success" style="display:none;">Welcome <span></span> </p>
+
+    <div id="loggedBar">
+        <a id="favorites" style="display: none;" class="clean-a"  href="">favorites</a>
+        <button id="logoutBtn" style="display:none;">Logout</button>
+    </div>
+
+
+
+    <div id="forHandle">
+    </div>
     <script id="categories-template" type="text/x-handlebars-template">
-        <ul class="clean-ul" name="categories">
-        {{#each categories}}
-            <li>
-            <div class="">
-                <a class="clean-a redHover" href="category?id={{id}}"> 
-                    <h3>{{title}} </h3>
-                    <div class="imageContainer">
-                        <img src="https://wiki-ads.onrender.com/{{img_url}}">
-                    </div>
-                </a>
-                <ul class="clean-ul" name="subcategories">
-                {{#each subcategories}}
-                    <li><a class="clean-a redHover" href="subcategory?id={{id}}">{{title}}</a></li>
-                {{/each}}
-                </ul>
-            </div>
-            </li>
-        {{/each}}
-        </ul>
-    </script>
+            <ul class="clean-ul" name="categories">
+            {{#each categories}}
+                <li>
+                <div class="">
+                    <a class="clean-a redHover" href="category?id={{id}}"> 
+                        <h3>{{title}} </h3>
+                        <div class="imageContainer">
+                            <img src="https://wiki-ads.onrender.com/{{img_url}}">
+                        </div>
+                    </a>
+                    <ul class="clean-ul" name="subcategories">
+                    {{#each subcategories}}
+                        <li><a class="clean-a redHover" href="subcategory?id={{id}}">{{title}}</a></li>
+                    {{/each}}
+                    </ul>
+                </div>
+                </li>
+            {{/each}}
+            </ul>
+        </script>
+
+    
+
     <script>
 
         Promise.all([getCategories(), getSubCategories()])
@@ -57,10 +91,16 @@
                     subcategories: subcategories.filter(subcategory => subcategory.category_id === category.id)
                 }))
             };
-            let html = template(data);
-            document.body.innerHTML += html;
+            let html = template(data );
+            let main = document.body.querySelector('#forHandle');
+            main.innerHTML += html;
+
         });
       </script>
+        <script>
+            let loggedIn = checkIfLoggedIn();
+            submitFormInit();
+        </script>
 
 </body>
 </html>
