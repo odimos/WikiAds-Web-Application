@@ -43,20 +43,30 @@ form {
     transition: 0.2s;
 }
 
-  .spinner {
-    width: 96px;
-    height: 96px;
-    margin: auto;
-    border: 3px solid #ccc;
-    border-top-color: #333;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    display: none;
-  }
+.spinner {
+width: 96px;
+height: 96px;
+margin: auto;
+border: 3px solid #ccc;
+border-top-color: #333;
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+display: none;
+}
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+
+.loadingText{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: rgb(100, 100, 100);
+    display: none;
+}
 
 form fieldset {
   margin-bottom: 20px;
