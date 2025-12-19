@@ -1,0 +1,219 @@
+
+
+function checkIfLoggedIn(){
+    let formSuccess = document.querySelector('#formSuccess');
+    if(formSuccess) formSuccess.style.display = "none";
+    
+    const s = JSON.parse(localStorage.getItem("session"));
+    if (s) {
+        myGlobalvariables.username = s.username;
+        myGlobalvariables.sessionId = s.sessionId;
+        let loginForm = document.querySelector('#loginForm')
+        if (loginForm) loginForm.style.display = "none";
+        document.querySelector('.messageContainer > h3').textContent = `Welcome, ${s.username}`;
+        let favs_link = document.querySelector('#favorites');
+        if (favs_link) {
+            favs_link.href = `favorites?username=${myGlobalvariables.username}&sessionId=${myGlobalvariables.sessionId}`;
+            favs_link.style.display = "block";
+        }
+        document.querySelector('#logoutBtn').style.display = "inline-block";
+        initLogout()
+        return true;
+    }
+    return false;
+}
+
+function informForm(success, txt){
+    let formSuccess = document.querySelector('#formSuccess');
+    if (!success){
+        formSuccess.textContent = 'Login Failed: '+txt;
+        formSuccess.classList.add('failure');
+
+    } else {
+        formSuccess.style.display = "none";
+        let welcome = document.querySelector('#welcome');
+        welcome.style.display = "block";
+        document.querySelector('#loginForm')
+        .style.display = "none";
+        let usernameElement = welcome.querySelector('span');
+        usernameElement.textContent = txt
+    }
+
+}
+
+function informLocalStorage(username, sessionId){
+    myGlobalvariables.username = username;
+    myGlobalvariables.sessionId =  sessionId;
+    localStorage.setItem("session", JSON.stringify({ username, sessionId }));
+
+
+    let favs_link = document.querySelector('#favorites');
+    favs_link.href = `favorites?username=${username}&sessionId=${sessionId}`;
+    favs_link.style.display = "block";
+    document.querySelector('#logoutBtn').style.display = "inline-block";
+    initLogout();
+}
+
+function submitFavorite(event){
+
+    let username = myGlobalvariables.username;
+    let sessionId = myGlobalvariables.sessionId;
+    // check client-side if logged 
+    if (!sessionId){
+        alert('Παρακαλώ συνδεθείτε για προσθήκη στη λίστα αγαπημένων');
+        return;
+    }
+
+    const btn = event.target;
+    let liData = btn.parentElement.parentElement;
+    let data = {
+        'ad':{
+            "image":liData.querySelector(`[name="image"]`).src,
+            "id": btn.dataset.ad_id  
+        },
+        user:{
+            username, sessionId
+        }
+    };
+    ['title', 'description', 'cost'].forEach(attribute_name=>{
+            data.ad[attribute_name] = 
+            liData.querySelector(`[name="${attribute_name}"]`).textContent
+    });
+    console.log(data);
+    const headers = {
+        "Content-type": "application/json"
+      };
+
+    fetch( `favorites` , {
+        method:'PUT',
+        headers,
+        body:JSON.stringify(data)
+    })
+    .then(response=>{
+        if (response.status==200){
+            return response.json();
+
+        } else if (response.status==401 || response.status==409){
+            // authorisation error
+            return response.json()
+            .then(err=>{
+                console.log('Auth Error', err.message);
+                throw new Error(err.message);
+            });
+        } else {
+            console.log(response);
+            throw new Error(`Unexpected Error: ${response.statusText}`);
+        }
+      })
+      .then(data=>{
+        alert("Successfully added to favorites");
+        console.log(data);
+      })
+      .catch(err=>{
+        let alertMsg = "Failed to add to favorites: "+err
+        alert(alertMsg)
+        console.log('Error occured:', err);
+      });
+
+    
+}
+
+
+function submitFormInit(){
+    console.log('submitFormInit called')
+    let login = document.querySelector("#loginForm");
+    console.log('login form found:', login)
+    if (! login ) return;
+    login.addEventListener('submit',(event)=>{
+        console.log('submitted')
+        event.preventDefault();
+        const data = new FormData(event.target);
+        const jsonData = {};
+        data.forEach((value, key) => {
+            jsonData[key] = value
+          });
+
+          const headers = {
+            "Content-type": "application/json"
+          };
+
+          fetch('/login', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(jsonData)
+          })
+          .then(response=>{
+            if (response.status==200){
+                return response.json();
+
+            } else if (response.status==401){
+                // authorisation error
+                return response.json()
+                .then(err=>{
+                    console.log('Auth Error', err);
+                    throw new Error('Failed Authorisation');
+                });
+            } else {
+                console.log(response);
+                throw new Error(`Unexpected Error: ${response.statusText}`);
+            }
+          })
+          .then(data=>{
+            informForm(true, jsonData.username);
+            informLocalStorage(jsonData.username, data.sessionId);
+            console.log(data);
+          })
+          .catch(err=>{
+            informForm(false,'Failed Authorisation');
+            console.log('Error occured:', err);
+          });
+    });
+
+}
+
+function initFilter(){
+    let filter_radio = document.querySelector('#side-menu');
+    filter_radio.addEventListener('change', (event)=>{
+        let element = event.target;
+        let sub_id = element.value;
+        filter(sub_id);
+    })
+}
+
+function filter(sub_id){
+    let ads = document.querySelectorAll('[name="categoryAd"]');
+    console.log('ads:', ads, sub_id)
+    ads.forEach(ad => {
+        console.log(ad.dataset.sub_id)
+        if (ad.dataset.sub_id == sub_id || sub_id==0){
+            ad.style.display = 'inline-block';
+        } else {
+            ad.style.display = 'none';
+        }
+        
+    });
+}
+
+
+function initLogout() {
+  const btn = document.getElementById("logoutBtn");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    fetch("/logout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: myGlobalvariables.username,
+        sessionId: myGlobalvariables.sessionId
+      })
+    }).finally(() => {
+      // clear client state
+      myGlobalvariables.username = undefined;
+      myGlobalvariables.sessionId = undefined;
+      localStorage.removeItem("session"); // if you use it
+
+      location.reload();
+    });
+  });
+}

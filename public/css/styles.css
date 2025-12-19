@@ -19,6 +19,54 @@ form {
 }
 
 
+#loggedBar {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#logoutBtn{
+    margin-left: 10px;
+    padding: 20px;
+    font-size: 1.2em;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(255, 100, 100);
+}
+
+#logoutBtn:hover{
+    background-color: rgb(255, 0, 0);
+    color: white;
+    transition: 0.2s;
+}
+
+.spinner {
+width: 96px;
+height: 96px;
+margin: auto;
+border: 3px solid #ccc;
+border-top-color: #333;
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+display: none;
+}
+
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+
+.loadingText{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: rgb(100, 100, 100);
+    display: none;
+}
 
 form fieldset {
   margin-bottom: 20px;
@@ -313,9 +361,9 @@ nav span{
     padding: 20px;
     font-size: 1.2em;
     width: 200px;
-    display: block;
+    display: inline-block;
     text-align: center;
-    margin: 10px auto;
+
 }
 
 #favorites:hover{

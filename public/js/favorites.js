@@ -11,15 +11,10 @@ function handlebarsCreation(ads){
 
 window.onload = ()=>{
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username');
-    const sessionId = urlParams.get('sessionId');
-    console.log(username, sessionId);
-
     fetch('/showfavorites',{
         method:'POST',
         headers: { 'Content-type':'application/json' },
-        body: JSON.stringify({'username':username, 'sessionId':sessionId})
+        body: JSON.stringify({'username':myGlobalvariables.username, 'sessionId':myGlobalvariables.sessionId})
     })
     .then(response=>{
         if (response.status!=200){

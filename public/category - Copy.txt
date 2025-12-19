@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category</title>
     <script>
+        // some global vars
         const myGlobalvariables = {
-            username: undefined,
-            sessionId: undefined
+            "username": undefined,
+            "sessionId": undefined
         };
+
     </script>
-    <script src="static/js/login.js"></script>
     <script src="static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <script src="static/js/category.js"></script>
@@ -37,16 +38,11 @@
 
         <input class="submit-btn" id="submitlogin" type="submit" value="login">
     </form>
-    <p id="formSuccess"></p>
-    <p id="welcome" class="success" style="display:none;">Welcome <span></span> </p>
+        <p id="formSuccess"></p>
+        <p id="welcome" class="success" style="display:none;">Welcome <span></span> </p>
 
-    <div id="loggedBar">
         <a id="favorites" style="display: none;" class="clean-a"  href="">favorites</a>
-        <button id="logoutBtn" style="display:none;">Logout</button>
-    </div>
-    <div id="emptyMessage" style="display: none;">
-        <h1>There are no ads here, try another category</h1>
-    </div>
+ 
     
     <div id="gridWrapper">
     
@@ -54,10 +50,10 @@
             <script id="category-template" type="text/x-handlebars-template">
                 <ul class="categories clean-ul" name="ads">
                     {{#each ads}}
-                    <li name="categoryAd" data-ad_id="{{subcategory_id}}">
+                    <li name="categoryAd" data-sub_id="{{subcategory_id}}">
                         <div class="adLezanta">
                             <h2 name="title">{{title}}</h2>
-                            <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event, 'add')" >❤️</button>
+                            <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event)" >❤️</button>
                         </div>
                         <div class="adContent">
                             <div class="imageFrame">
@@ -95,11 +91,6 @@
 
 
     </div>
-
-    <script>
-        let loggedIn = checkIfLoggedIn();
-        submitFormInit();
-    </script>
 
 </body>
 </html>

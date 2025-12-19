@@ -4,14 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SubCategory</title>
-    <script>
-    const myGlobalvariables = {
-        username: undefined,
-        sessionId: undefined
-    };
-    </script>
-    <script src="static/js/category.js"></script>
-    <script src="static/js/login.js"></script>
     <script src="static/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <link rel="stylesheet" href="static/css/styles.css">
@@ -28,42 +20,12 @@
     </div>
     <div class="marginMenuElement"></div>
 
-    <form id="loginForm" >
-        <span>
-            <input type="text" id="username" name="username" placeholder="username">
-            <input type="password" id="password" name="password" placeholder="password">
-        </span>
-
-        <input class="submit-btn" id="submitlogin" type="submit" value="login">
-    </form>
-    
-
-    <p id="formSuccess"></p>
-    <p id="welcome" class="success" style="display:none;">Welcome <span></span> </p>
-
-    <div id="loggedBar">
-        <a id="favorites" style="display: none;" class="clean-a"  href="">favorites</a>
-        <button id="logoutBtn" style="display:none;">Logout</button>
-    </div>    
-    <br>
-    <div id="emptyMessage" style="display: none;">
-        <h1>There are no ads here, try another category</h1>
-    </div>
-
-    <div id="forHandle">
-
-    </div>
-
     <script id="Subcategory-template" type="text/x-handlebars-template">
-
         <ul name="ads">
             {{#each ads}}
-            <li name="categoryAd" data-sub_id="{{subcategory_id}}">
-                <div class="adLezanta">
-                    <h2 name="title">{{title}}</h2>
-                    <button name="add_favorite" data-ad_id="{{id}}" onclick="submitFavorite(event, 'add')" >❤️</button>
-                </div>
-                <p name="description">{{description}}</p>
+            <li name="categoryAd">
+                <h2>{{title}}</h2>
+                <p>{{description}}</p>
                 <div class="gallery">
                 {{#each images}}
                     <div class="imageFrame">
@@ -90,16 +52,8 @@
         //access to url params
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-        console.log("Subcategory id: ", id);
         getAdsFromSubCategory(id)
         .then(ads=>{
-            if (ads.length === 0){
-                document.getElementById("emptyMessage").style.display = "block";
-                console.log("no ads");
-            }else {
-                document.getElementById("emptyMessage").style.display = "none";
-                console.log("ads found");
-            }
             // handlebars
             let templateSource = document.getElementById("Subcategory-template").innerHTML;
             let template = Handlebars.compile(templateSource);
@@ -113,15 +67,10 @@
                 ads: ads
             };
             let html = template(data );
-            let main = document.body.querySelector('#forHandle');
-            main.innerHTML += html;
+            document.body.innerHTML += html;
         });
         
     </script>
-        <script>
-            let loggedIn = checkIfLoggedIn();
-            submitFormInit();
-        </script>
     
 </body>
 </html>
