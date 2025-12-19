@@ -1,118 +1,193 @@
 # WikiAds Web Application
+*Τεχνολογίες και Προγραμματισμός Εφαρμογών στον Ιστό, Οικονομικό Πανεπιστήμιο Αθηνών 2024*
 
-Web εφαρμογή μικρών αγγελιών που χρησιμοποιεί το WikiAps API για .
+Web εφαρμογή για προβολή και αποθήκευση μικρών αγγελιών.
+Τα δεδομένα των αγγελιών αντλούνται από το WikiAds API.
+Οι χρήστες και οι προτιμήσεις τους αποθηκεύονται σε Βάση Δεδομένων MongoDB Atlas.
+Το backend έχει υλοποιηθεί σε Node.js με Express και φιλοξενείται στο Render.com.
 
-https://wikiads-web-application.onrender.com/
+Η εφαρμογή επιτρέπει πλοήγηση στις αγγελίες και προσθήκη ή αφαίρεση αγγελιών από τα αγαπημένα για εγγεγραμμένους χρήστες.
 
-Χρήση του API της υπηρεσίας μικρών αγγελιών WikiAds για τη δημιουργία εφαρμογής που υποστηρίζει πλοήγηση σε κατηγορίες και υποκατηγορίες αγγελιών, προσθήκη αγγελιών στα αγαπημένα, 
-προβολή αγαπημένων αγγελιών και φιλτράρισμα αγγελιών βάσει υποκατηγορίας.
-Η εφαρμογή χρησιμοποιεί βάση δεδομένων mongoDB στην πλατφόρμα atlas.
-Τα credentials για σύνδεση στη βάση δεδομένων δίνονται στο αρχείο ".env" που δεν αναρτάται δημόσια.
+## Live Preview
 
-Χρήση του Web API της υπηρεσίας μικρών αγγελιών WikiAds, η οποία υποστηρίζει δημοσίευση
-και αναζήτηση αγγελιών για διάφορες κατηγορίες προϊόντων και υπηρεσιών.
+🔗 https://wikiads-web-application.onrender.com/
 
-Για να γίνει κλήση στο WikiAds API χρησιμοποιείται το Fetch API. 
-Η δυναμική παραγωγή κώδικα γίνεται με τη βιβλιοθήκη Handlebar. 
-
-Ταυτοποίηση χρήστη:
-Φόρμα ταυτοποίησης, Υποβολή μέσω Fetch API. 
-
-WikiAds API:
-Υποστηρίζει κλήσεις: 
-GET /categories
-GET /categories/:id/subcategories
-GET /subcategories
-GET /ads?subcategory={id}
-GET /ads?category={id}
-Επιστρέφει αποτελέσματα σε μορφή JSON
-
-Η εμφάνιση των κατηγοριών καθώς και των αγγελιών κάθε κατηγορίας θα γίνεται με δυναμική παραγωγή HTML κώδικα και προσάρτησή του σε κατάλληλα σημεία των ιστοσελίδων. Η
-παραγωγή HTML κώδικα θα γίνει με αξιοποίηση της βιβλιοθήκης Handlebars και κατάλληλων
-HTML templates
-
-Κήση στο WikiAds API, κατά την επιστροφή των αποτελεσμάτων promise[...].then( results -> ... )
-η βιβλιοθήκη handlebars αναλαμβάνει με βάση τα αποτελέσματα να δημιουργήσει δυναμικά το νέο περιεγχόμενο
-
-MongoDB (Atlas) <-MongoClient-> Server (Node.js + Express) <-Fetch API, HTTP request-> Client (Web Browser) <-Fetch API-> WikiAds API
-
-REST API του server
-GET /category , /subcategory , / favorites , / 
-POST /login , /showFavorites , /logout
-PUT /favorites
-DELETE /favorites
-Τα δεδομένα όπου υπάρχουν βρίσκονται στο body της κλήσης.
-
-Port 3000
-
-Κύριες Λειτουργίες
-Πλοήγηση Αγγελιών
-    Προβολή κατηγοριών & υποκατηγοριών
-    Προβολή αγγελιών ανά κατηγορία ή υποκατηγορία
-    Φιλτράρισμα αγγελιών ανά υποκατηγορία
-Authentication
-    Login μέσω HTML form
-    Persistance loged in μέσω LocalStorage και Session
-Login:
-    Σϋνδεση και αποσύνδεση χρήστη, με δυνατότητα να παραμένει συνδεδεμένος
-Favorites
-    Προσθήκη/διαγραφή αγγελιών στα αγαπημένα του χρήστη
-    με αποφυγή διπλοεγγραφών
-    Προβολή λίστας αγαπημένων σε ξεχωριστή σελίδα
-Δεδομένα
-    Διατήρηση των πληροφοριών των χρηστών σε βάση δεδομένων
-
-### Τεχνολογίες
-Front-end: Html, CSS, JavaScript, Fetch API, handlebars library
-Back-end (server): Node.js + express + uuid
-Database: MongoDB (Atlas) with MongoDB driver (MongoClient)
-
-Server -> REST API
-
-Οι πληροφορίες του WikiAds αποκτώνται με μια κλήση Fetch API με τις αντίστοιχες παραμέτρους.
-
-Το Φιλτράρισμα αγγελιών ανά υποκατηγορία δεν ξανα φορτώνει τις αγγελίες.
-Το φιλτράρισμα λειτουργεί αλλάζωντας το display σε none όσων δεν ταιριάζουν με το φίλτρο.
-
-Η σελίδα
-favorite-ads.html, η οποία θα προβάλλει τις αγαπημένες αγγελίες ενός συγκεκριμένου χρήστη. Ο προσδιορισμός του χρήστη θα γίνεται με κατάλληλες παραμέτρους ερωτήματος στο URL
-της σελίδας (πχ. favorite-ads.html?username=bzafiris&sessionId=1b9d6bcdbbfd-4b2d-9b5d-ab8dfbbd4bed). Κατά τη φόρτωση της favorite-ads.html, θα λαμβάνονται οι τιμές των παραμέτρων ερωτήματος με χρήση JavaScript κώδικα (αντίστοιχα με την ΠΧ
-1) και θα υποβάλλεται αίτημα στο διακομιστή για λήψη της λίστας αγαπημένων αγγελιών του
-χρήστη.
-
-Κάθε φορά που ανοίγει μια σελίδα ο κλιεντ, ελέγχει αν υπάρχουν αποθηκευμένα δεδομένα στο LocalStorage 
-για το session, και αν υπάρχουν τα στέλνει για να δει αν είναι έγκυρα κ ο χρήστης είναι συνδεδεμένος.
-
-Login:
-Fetch API για να σταλούν username και password στο server.
-Ο server ελέγχει αν υπάχει εγγραφή με αυτό το συνδιασμό στη βάση δεδομένων, και αν ναι ανανεώνει το sessionId της εγγραφής με έναν τυχαίο κωδικό από το uuid, το οποίο και επιστρέφει.
-Authentication: 
-Ο Client αποθηκεύει στο LocalStorage το sessionId προκειμένου να κάνει authenticate τα αιτήματά του (πρόσθεση / αφαίρεση favorites)ν αλλά και να παραμένει συνδεδεμένος για κάποιο διάστημα χωρίς να χρειάζεται συνεχώς να βάζει το username και password.
-Σε κάθε authentication ο Client στέλνει με Fetch API το όνομα χρήστη και το sessionId, για να ελεγχθεί αν αντιστοιχεί με κάποια εγγραφή στη βάση.
-
-Η παραπάνω εφαρμογή πραγματοποιήθηκε στα πλαίσια της 2ης εργασίας του μαθήματος "Τεχνολογίες και Προγραμματισμός Εφαρμογών στον Ιστό". 
-Σύμφωνα με σχολιαστές, θεωρείται η καλύτερη εργασία του 2024.
-
-Debugging: Χρήση nodemon και we developer tools.
-
-## Usage
-Open the location on command line.  
-Enter "node index.js" to start the server.  
-If everything goes well you will see on cmd  
-"You successfully connected to MongoDB!  
-Listening to port:  3000"  
-Go to localhost:3000 and enjoy the app!  
+⚠️ Σημείωση:
+Ο server που εξυπηρετεί το backend χρειάζεται λίγο χρόνο για να «ξυπνήσει» μετά το πρώτο άνοιγμα.
+Το ίδιο ισχύει και για το WikiAds API.
 
 ## Demo users
+- **Mitsos** — Username: `mitsos`, Password: `123`
+- **Vasso** — Username: `vasso`, Password: `111`
 
-### Mitsos
+## Κύριες Λειτουργίες
 
-- Username: mitsos
-- Password: 123
+### Πλοήγηση Αγγελιών
+- Προβολή κατηγοριών και υποκατηγοριών
+- Προβολή αγγελιών ανά κατηγορία ή υποκατηγορία
+- Φιλτράρισμα αγγελιών
 
-### Vasso
+### Authentication
+- Login και logout
+- Persistence logged-in μέσω LocalStorage και session
 
-- Username: vasso
-- Password: 111
+### Favorites
+- Προσθήκη και διαγραφή αγγελιών στα αγαπημένα
+- Αποφυγή διπλοεγγραφών
+- Προβολή λίστας αγαπημένων
+
+### Δεδομένα
+- Αποθήκευση πληροφοριών χρηστών σε βάση δεδομένων
+
+
+## Τεχνολογίες
+
+### Front-end
+- HTML  
+- CSS  
+- JavaScript  
+- Fetch API  
+- Handlebars.js  
+
+### Back-end
+- Node.js  
+- Express  
+- UUID  
+- MongoDB Driver (MongoClient)  
+- Hosted στο Render.com  
+
+### Database
+- MongoDB Atlas  
+
+
+## Αρχιτεκτονική
+
+Client (Web Browser)
+  ├─ Fetch API─────────→ WikiAds API
+  │
+  ├─ HTTP GET request ──→ Server (HTML)
+  │
+  └─ Fetch API ───────→ Server (Node.js + Express)
+                           │
+                           ├─ MongoDB Driver (MongoClient)
+                           │
+                           └─ MongoDB Atlas
+  
+
+
+### Περιγραφή
+
+- Ο **Client (Web Browser)** :
+  - χρησιμοποιεί το Fetch API απευθείας προς το WikiAds API για την ανάκτηση αγγελιών
+  - χρησιμοποιεί το Fetch API προς τον Server για λειτουργίες authentication και διαχείρισης αγαπημένων
+  - πραγματοποιεί HTTP GET requests προς τον Server για την αρχική φόρτωση HTML σελίδων
+
+- Ο **Server**:
+  - είναι υλοποιημένος σε Node.js με Express
+  - εκθέτει REST API
+  - επικοινωνεί με τη MongoDB Atlas μέσω του MongoClient
+
+- Η **MongoDB Atlas** 
+  - αποθηκεύει χρήστες, sessions και αγαπημένες αγγελίες
+
+## WikiAds API
+
+Χρήση του Web API της υπηρεσίας μικρών αγγελιών WikiAds, το οποίο επιστρέφει δεδομένα σε μορφή JSON.
+
+### Υποστηριζόμενες κλήσεις
+- `GET /categories`
+- `GET /categories/:id/subcategories`
+- `GET /subcategories`
+- `GET /ads?subcategory={id}`
+- `GET /ads?category={id}`
+
+Η ανάκτηση των δεδομένων γίνεται με **Fetch API** και η εμφάνισή τους μέσω δυναμικής παραγωγής HTML με **Handlebars templates**.
+
+---
+
+## REST API Server
+
+### GET
+- `/category`
+- `/subcategory`
+- `/favorites`
+
+### POST
+- `/login`
+- `/showFavorites`
+- `/logout`
+
+### PUT
+- `/favorites`
+
+### DELETE
+- `/favorites`
+
+Τα δεδομένα αποστέλλονται στο body των HTTP requests όπου απαιτείται.
+
+## Authentication & Sessions
+
+- Login μέσω HTML form και Fetch API
+- Ο server ελέγχει τα credentials στη βάση δεδομένων
+- Σε επιτυχή σύνδεση δημιουργείται νέο `sessionId` με χρήση UUID
+- Το `sessionId` αποθηκεύεται στο LocalStorage
+- Σε κάθε αίτημα που απαιτεί authentication αποστέλλονται `username` και `sessionId`
+- Ο client ελέγχει κατά το άνοιγμα κάθε σελίδας αν υπάρχει ενεργό session
+
+---
+
+## Favorites
+
+Η σελίδα `favorite-ads.html` προβάλλει τις αγαπημένες αγγελίες του χρήστη.
+
+Ο προσδιορισμός του χρήστη γίνεται μέσω παραμέτρων URL, π.χ.:
+
+```text
+favorite-ads.html?username=mitsos&sessionId=xxxx
+```
+
+
+### Κατά τη φόρτωση της σελίδας
+- Ανάκτηση των παραμέτρων URL με JavaScript
+- Αποστολή αιτήματος στον server για λήψη των αγαπημένων αγγελιών
+
+---
+
+## Φιλτράρισμα Αγγελιών
+
+Το φιλτράρισμα αγγελιών ανά υποκατηγορία:
+- Δεν επαναφορτώνει δεδομένα
+- Υλοποιείται με αλλαγή του `display: none` σε αγγελίες που δεν ταιριάζουν στο φίλτρο
+
+---
+
+## Διαχείριση Δεδομένων
+
+- Οι χρήστες και οι προτιμήσεις τους αποθηκεύονται στη MongoDB Atlas
+- Τα credentials σύνδεσης βρίσκονται στο αρχείο `.env`, το οποίο δεν αναρτάται δημόσια
+
+---
+
+## Debugging & Development
+
+- Nodemon
+- Browser Developer Tools
+
+## Local Usage
+
+```bash
+node index.js
+```
+
+## Επιχυτής εκκίνηση:
+```text
+You successfully connected to MongoDB!
+Listening to port:  3000
+```
+
+Η εφαρμογή θα είναι διαθέσιμη εδώ:
+http://localhost:3000
+
+
 
 [Εκφώνηση](project.pdf)
