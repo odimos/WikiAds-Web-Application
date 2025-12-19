@@ -172,12 +172,17 @@ function submitFormInit(){
 }
 
 function initFilter(){
-    let filter_radio = document.querySelector('#side-menu');
-    filter_radio.addEventListener('change', (event)=>{
-        let element = event.target;
-        let sub_id = element.value;
-        filter(sub_id);
-    })
+    try {
+        let filter_radio = document.querySelector('#side-menu');
+        filter_radio.addEventListener('change', (event)=>{
+            let element = event.target;
+            let sub_id = element.value;
+            filter(sub_id);
+        })
+    } catch (error) {
+        console.log("Error initializing filter:", error);
+    }
+
 }
 
 function filter(sub_id){

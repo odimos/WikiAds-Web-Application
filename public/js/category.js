@@ -2,23 +2,33 @@
 
 function createHandlebarsAds(ads){
         // handlebars
-        let templateSource = document.getElementById("category-template").innerHTML;
-        let template = Handlebars.compile(templateSource);
-        let data = {
-            ads: ads
-        };
-        let html = template(data );
-        let main = document.body.querySelector('main');
+        try {
+            let templateSource = document.getElementById("category-template").innerHTML;
+            let template = Handlebars.compile(templateSource);
+            let data = {
+                ads: ads
+            };
+            let html = template(data );
+            let main = document.body.querySelector('main');
         main.innerHTML += html;
+        } catch (error) {   
+            console.log("Error creating ads handlebars:", error);
+        }
+
 }
 
 function createHandlebarsSideMenu(subs){
-    let templateSource = document.getElementById("side-menu-template").innerHTML;
-    let template = Handlebars.compile(templateSource);
-    let data = {subs: subs};
-    let html = template(data );
-    let grid = document.querySelector('#gridWrapper');
-    grid.innerHTML += html;
+    try {
+        let templateSource = document.getElementById("side-menu-template").innerHTML;
+        let template = Handlebars.compile(templateSource);
+        let data = {subs: subs};
+        let html = template(data );
+        let grid = document.querySelector('#gridWrapper');
+        grid.innerHTML += html;
+    } catch (error) {
+        console.log("Error creating side menu handlebars:", error);
+    }
+
 }
 
 window.onload = ()=>{
@@ -62,12 +72,12 @@ function initFilter(){
     })
 }
 
-function filter(sub_id){
+function filter(ad_id){
     let ads = document.querySelectorAll('[name="categoryAd"]');
-    console.log('ads:', ads, sub_id)
+    console.log('ads:', ads, ad_id)
     ads.forEach(ad => {
-        console.log(ad.dataset.sub_id)
-        if (ad.dataset.sub_id == sub_id || sub_id==0){
+        console.log(ad.dataset.ad_id)
+        if (ad.dataset.ad_id == ad_id || ad_id==0){
             ad.style.display = 'inline-block';
         } else {
             ad.style.display = 'none';
