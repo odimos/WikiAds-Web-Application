@@ -125,7 +125,7 @@ app.post('/logout', async (req, res) => {
 // after promise resolved it is a client object
 // app.listen called after connecting with client ensures that no rest calls will be made to nodejs
 // before it has connected with atlas
-const port =  3000;
+const port = process.env.PORT || 3000;
 getClient.then(async client=>{ // this should be inside DAO
   app.listen(port,()=>console.log('Listening to port: ', port));
   let collection = client.db('wikiAPI').collection('users');
