@@ -10,8 +10,9 @@ Web εφαρμογή για προβολή και αποθήκευση μικρ�
 
 ## Live Preview
 
+<a href="https://wikiads-web-application.onrender.com/" target="_blank">
 🔗 https://wikiads-web-application.onrender.com/
-
+</a>
 ⚠️ Σημείωση:
 Ο server που εξυπηρετεί το backend χρειάζεται λίγο χρόνο για να «ξυπνήσει» μετά το πρώτο άνοιγμα.
 Το ίδιο ισχύει και για το WikiAds API.
@@ -61,7 +62,7 @@ Web εφαρμογή για προβολή και αποθήκευση μικρ�
 
 
 ## Αρχιτεκτονική
-
+```text
 Client (Web Browser)
   ├─ Fetch API─────────→ WikiAds API
   │
@@ -72,8 +73,7 @@ Client (Web Browser)
                            ├─ MongoDB Driver (MongoClient)
                            │
                            └─ MongoDB Atlas
-  
-
+```
 
 ### Περιγραφή
 
@@ -103,7 +103,6 @@ Client (Web Browser)
 
 Η ανάκτηση των δεδομένων γίνεται με **Fetch API** και η εμφάνισή τους μέσω δυναμικής παραγωγής HTML με **Handlebars templates**.
 
----
 
 ## REST API Server
 
@@ -134,7 +133,6 @@ Client (Web Browser)
 - Σε κάθε αίτημα που απαιτεί authentication αποστέλλονται `username` και `sessionId`
 - Ο client ελέγχει κατά το άνοιγμα κάθε σελίδας αν υπάρχει ενεργό session
 
----
 
 ## Favorites
 
@@ -146,12 +144,9 @@ Client (Web Browser)
 favorite-ads.html?username=mitsos&sessionId=xxxx
 ```
 
+Ανάκτηση των παραμέτρων URL με JavaScript   
+Αποστολή αιτήματος στον server για λήψη των αγαπημένων αγγελιών
 
-### Κατά τη φόρτωση της σελίδας
-- Ανάκτηση των παραμέτρων URL με JavaScript
-- Αποστολή αιτήματος στον server για λήψη των αγαπημένων αγγελιών
-
----
 
 ## Φιλτράρισμα Αγγελιών
 
@@ -159,14 +154,11 @@ favorite-ads.html?username=mitsos&sessionId=xxxx
 - Δεν επαναφορτώνει δεδομένα
 - Υλοποιείται με αλλαγή του `display: none` σε αγγελίες που δεν ταιριάζουν στο φίλτρο
 
----
 
 ## Διαχείριση Δεδομένων
 
 - Οι χρήστες και οι προτιμήσεις τους αποθηκεύονται στη MongoDB Atlas
 - Τα credentials σύνδεσης βρίσκονται στο αρχείο `.env`, το οποίο δεν αναρτάται δημόσια
-
----
 
 ## Debugging & Development
 
@@ -188,6 +180,6 @@ Listening to port:  3000
 Η εφαρμογή θα είναι διαθέσιμη εδώ:
 http://localhost:3000
 
+---
 
-
-[Εκφώνηση](project.pdf)
+[Εκφώνηση της Εργασίας](project.pdf)
