@@ -16,7 +16,6 @@ function test(){
 }
 
  function getAdsFromSubCategory(id){
-  // why does it need the / before ? ??
   return getData(`https://wiki-ads.onrender.com/ads/?subcategory=${id}`);
 
 }
