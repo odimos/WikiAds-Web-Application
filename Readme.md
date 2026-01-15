@@ -45,7 +45,7 @@ The same applies to the external WikiAds API.
 - MongoDB Atlas
 
 **Frontend**
-- HTML, CSS, JavaScript (Fetch API)
+- HTML, CSS, JavaScript (Fetch API), Handlebars
 
 ## Additional Documentation
 
