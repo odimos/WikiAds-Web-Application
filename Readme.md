@@ -17,7 +17,7 @@ Web application for browsing classified ads, with user authentication and persis
 ⚠️ **Note:**  
 The backend server may require a short time to respond on first access due to cold start (Render free tier).  
 The same applies to the external WikiAds API.
-(Response time may take up to ~5 minutes on first access.)
+(Response time may take up to ~3 minutes on first access.)
 
 
 ## Demo Users
