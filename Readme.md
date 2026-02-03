@@ -50,4 +50,4 @@ The same applies to the external WikiAds API.
 ## Additional Documentation
 
 Detailed technical documentation, local run instructions, and coursework description (in Greek):  
-📄 [README_GR_DOC.md](README_GR_DOC.md)
+📄 [README_GR_DOC.md](GREEK_README_DOC.md)
